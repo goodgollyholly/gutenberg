@@ -2282,8 +2282,6 @@ function getDerivedBlockEditingModesForTree(
 	isNavMode = false,
 	treeClientId = ''
 ) {
-	const isZoomedOut =
-		state?.zoomLevel < 100 || state?.zoomLevel === 'auto-scaled';
 	const derivedBlockEditingModes = new Map();
 
 	// When there are sections, the majority of blocks are disabled,
@@ -2367,7 +2365,7 @@ function getDerivedBlockEditingModesForTree(
 			}
 		}
 
-		if ( isZoomedOut || isNavMode ) {
+		if ( isNavMode ) {
 			// If the root block is the section root set its editing mode to contentOnly.
 			if ( clientId === sectionRootClientId ) {
 				derivedBlockEditingModes.set( clientId, 'contentOnly' );
@@ -2382,13 +2380,6 @@ function getDerivedBlockEditingModesForTree(
 
 			if ( sectionClientIds.includes( clientId ) ) {
 				derivedBlockEditingModes.set( clientId, 'contentOnly' );
-				return;
-			}
-
-			// If zoomed out, all blocks that aren't sections or the section root are
-			// disabled.
-			if ( isZoomedOut ) {
-				derivedBlockEditingModes.set( clientId, 'disabled' );
 				return;
 			}
 
@@ -3029,9 +3020,9 @@ export function withDerivedBlockEditingModes( reducer ) {
 				break;
 			}
 			case 'RESET_BLOCKS':
-			case 'SET_EDITOR_MODE':
-			case 'RESET_ZOOM_LEVEL':
-			case 'SET_ZOOM_LEVEL': {
+			case 'SET_EDITOR_MODE': {
+				// case 'RESET_ZOOM_LEVEL':
+				// case 'SET_ZOOM_LEVEL': {
 				// Recompute the entire tree if the editor mode or zoom level changes,
 				// or if all the blocks are reset.
 				return {
