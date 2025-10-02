@@ -9,9 +9,15 @@ import { __ } from '@wordpress/i18n';
  * Internal dependencies
  */
 import { store as blockEditorStore } from '../../store';
+import { unlock } from '../../lock-unlock';
 
 export default function EditContentsButton( { clientId } ) {
-	const { updateBlockAttributes } = useDispatch( blockEditorStore );
+	// Disable reason: it is an effect so can't move relocated to after
+	// the if statement.
+	// eslint-disable-next-line @wordpress/no-unused-vars-before-return
+	const { modifyContentLockBlock } = unlock(
+		useDispatch( blockEditorStore )
+	);
 	const { attributes } = useSelect(
 		( select ) => {
 			return {
@@ -22,7 +28,10 @@ export default function EditContentsButton( { clientId } ) {
 		[ clientId ]
 	);
 
-	if ( ! attributes?.metadata?.patternName ) {
+	if (
+		! attributes?.metadata?.patternName ||
+		attributes?.templateLock === 'contentOnly'
+	) {
 		return null;
 	}
 
@@ -32,12 +41,7 @@ export default function EditContentsButton( { clientId } ) {
 			__next40pxDefaultSize
 			variant="secondary"
 			onClick={ () => {
-				const { patternName, ...metadataWithoutPatternName } =
-					attributes?.metadata ?? {};
-				updateBlockAttributes( clientId, {
-					...attributes,
-					metadata: metadataWithoutPatternName,
-				} );
+				modifyContentLockBlock( clientId );
 			} }
 		>
 			{ __( 'Edit contents' ) }

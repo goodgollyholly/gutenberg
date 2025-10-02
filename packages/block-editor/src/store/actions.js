@@ -1922,16 +1922,16 @@ export function setBlockVisibility( updates ) {
  * This action is created for internal/experimental only usage and may be
  * removed anytime without any warning, causing breakage on any plugin or theme invoking it.
  *
- * @param {?string} temporarilyEditingAsBlocks The block's clientId being temporarily edited as blocks.
- * @param {?string} focusModeToRevert          The focus mode to revert after temporarily edit as blocks finishes.
+ * @param {?string} clientId          The block's clientId being temporarily edited as blocks.
+ * @param {?string} focusModeToRevert The focus mode to revert after temporarily edit as blocks finishes.
  */
 export function __unstableSetTemporarilyEditingAsBlocks(
-	temporarilyEditingAsBlocks,
+	clientId,
 	focusModeToRevert
 ) {
 	return {
 		type: 'SET_TEMPORARILY_EDITING_AS_BLOCKS',
-		temporarilyEditingAsBlocks,
+		clientId,
 		focusModeToRevert,
 	};
 }
