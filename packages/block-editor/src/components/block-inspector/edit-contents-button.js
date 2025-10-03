@@ -18,28 +18,34 @@ export default function EditContentsButton( { clientId } ) {
 	const { modifyContentLockBlock, stopEditingAsBlocks } = unlock(
 		useDispatch( blockEditorStore )
 	);
-	const { attributes, isContentOnlyTemplateLocked, editedClientId } =
-		useSelect(
-			( select ) => {
-				const {
-					getBlockAttributes,
-					getTemporarilyEditingAsBlocks,
-					getTemplateLock,
-				} = unlock( select( blockEditorStore ) );
+	const {
+		attributes,
+		isContentOnlyTemplateLocked,
+		isWithinTemporarilyEditedSection,
+	} = useSelect(
+		( select ) => {
+			const {
+				getBlockAttributes,
+				isWithinTemporarilyEditedSection:
+					_isWithinTemporarilyEditedSection,
+				getTemplateLock,
+			} = unlock( select( blockEditorStore ) );
 
-				return {
-					attributes: getBlockAttributes( clientId ),
-					editedClientId: getTemporarilyEditingAsBlocks(),
-					isContentOnlyTemplateLocked:
-						getTemplateLock( clientId ) === 'contentOnly',
-				};
-			},
-			[ clientId ]
-		);
+			return {
+				attributes: getBlockAttributes( clientId ),
+				isWithinTemporarilyEditedSection:
+					_isWithinTemporarilyEditedSection( clientId ),
+				isContentOnlyTemplateLocked:
+					getTemplateLock( clientId ) === 'contentOnly',
+			};
+		},
+		[ clientId ]
+	);
 
 	if (
 		! attributes?.metadata?.patternName &&
-		! isContentOnlyTemplateLocked
+		! isContentOnlyTemplateLocked &&
+		! isWithinTemporarilyEditedSection
 	) {
 		return null;
 	}
@@ -50,14 +56,16 @@ export default function EditContentsButton( { clientId } ) {
 			__next40pxDefaultSize
 			variant="secondary"
 			onClick={ () => {
-				if ( ! editedClientId ) {
+				if ( ! isWithinTemporarilyEditedSection ) {
 					modifyContentLockBlock( clientId );
 				} else {
 					stopEditingAsBlocks();
 				}
 			} }
 		>
-			{ editedClientId ? __( 'Finish editing' ) : __( 'Edit design' ) }
+			{ isWithinTemporarilyEditedSection
+				? __( 'Finish editing' )
+				: __( 'Edit design' ) }
 		</Button>
 	);
 }

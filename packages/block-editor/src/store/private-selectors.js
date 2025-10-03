@@ -547,6 +547,24 @@ export function getTemporarilyEditingAsBlocks( state ) {
 	return state.temporarilyEditingAsBlocks;
 }
 
+export function isWithinTemporarilyEditedSection( state, clientId ) {
+	if ( ! state.temporarilyEditingAsBlocks ) {
+		return false;
+	}
+
+	if ( state.temporarilyEditingAsBlocks === clientId ) {
+		return true;
+	}
+
+	let current = clientId;
+	while ( ( current = state.blocks.parents.get( current ) ) ) {
+		if ( state.temporarilyEditingAsBlocks === current ) {
+			return true;
+		}
+	}
+	return false;
+}
+
 /**
  * Returns the focus mode that should be reapplied when the user stops editing
  * a content locked blocks as a block without locking.
