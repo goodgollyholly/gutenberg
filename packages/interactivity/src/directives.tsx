@@ -235,7 +235,7 @@ const useItemContexts = function* (
 	items: Iterable< unknown >,
 	itemProp: string,
 	eachKey?: DirectiveEntry
-): Generator< [ context: any, key: any ] > {
+): Generator< [ item: unknown, context: any, key: any ] > {
 	const { current: itemContexts } = useRef< any >( {} );
 
 	for ( const item of items ) {
@@ -250,12 +250,15 @@ const useItemContexts = function* (
 		if ( ! itemContexts[ key ] ) {
 			itemContexts[ key ] = proxifyContext(
 				proxifyState( namespace, {
-					[ itemProp ]: item,
+					// Inits the item prop in the context to shadow it in case
+					// it was inherited from the parent context. The actual
+					// value is set in the `wp-each` directive later on.
+					[ itemProp ]: undefined,
 				} ),
 				inheritedValue.client[ namespace ]
 			);
 		}
-		yield [ itemContexts[ key ], key ];
+		yield [ item, itemContexts[ key ], key ];
 	}
 };
 
@@ -793,7 +796,7 @@ export default () => {
 				eachKey?.[ 0 ]
 			);
 
-			for ( const [ itemContext, key ] of itemContexts ) {
+			for ( const [ item, itemContext, key ] of itemContexts ) {
 				const mergedContext = {
 					client: {
 						...inheritedValue.client,
@@ -801,6 +804,9 @@ export default () => {
 					},
 					server: { ...inheritedValue.server },
 				};
+
+				// Sets the item after proxifying the context.
+				mergedContext.client[ namespace ][ itemProp ] = item;
 
 				result.push(
 					createElement(
