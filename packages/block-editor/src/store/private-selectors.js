@@ -512,6 +512,10 @@ export const getParentSectionBlock = ( state, clientId ) => {
  * @return {boolean} Whether the block is a content locking parent.
  */
 export function isSectionBlock( state, clientId ) {
+	if ( clientId === state.temporarilyEditingAsBlocks ) {
+		return false;
+	}
+
 	const blockName = getBlockName( state, clientId );
 	if (
 		blockName === 'core/block' ||
