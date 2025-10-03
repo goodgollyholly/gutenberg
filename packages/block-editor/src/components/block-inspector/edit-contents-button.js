@@ -18,11 +18,14 @@ export default function EditContentsButton( { clientId } ) {
 	const { modifyContentLockBlock } = unlock(
 		useDispatch( blockEditorStore )
 	);
-	const { attributes } = useSelect(
+	const { attributes, editedClientId } = useSelect(
 		( select ) => {
+			const { getBlockAttributes, getTemporarilyEditingAsBlocks } =
+				unlock( select( blockEditorStore ) );
+
 			return {
-				attributes:
-					select( blockEditorStore ).getBlockAttributes( clientId ),
+				attributes: getBlockAttributes( clientId ),
+				editedClientId: getTemporarilyEditingAsBlocks(),
 			};
 		},
 		[ clientId ]
@@ -41,10 +44,14 @@ export default function EditContentsButton( { clientId } ) {
 			__next40pxDefaultSize
 			variant="secondary"
 			onClick={ () => {
-				modifyContentLockBlock( clientId );
+				if ( ! editedClientId ) {
+					modifyContentLockBlock( clientId );
+				} else {
+					modifyContentLockBlock();
+				}
 			} }
 		>
-			{ __( 'Edit contents' ) }
+			{ editedClientId ? __( 'Finish editing' ) : __( 'Edit layout' ) }
 		</Button>
 	);
 }

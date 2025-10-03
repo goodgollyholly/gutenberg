@@ -3009,11 +3009,20 @@ export function withDerivedBlockEditingModes( reducer ) {
 				break;
 			}
 			case 'SET_TEMPORARILY_EDITING_AS_BLOCKS': {
-				const addedBlocks = action.clientId
-					? [ nextState.blocks.byClientId.get( action.clientId ) ]
+				// When temporary editing of content locked blocks ends
+				// add block editing modes back again. Get the client id
+				// of the block from the previous store state.
+				const addedBlocks = ! action.clientId
+					? [
+							nextState.blocks.byClientId.get(
+								state.temporarilyEditingAsBlocks
+							),
+					  ]
 					: undefined;
-				const removedClientIds = ! action.clientId
-					? [ state.temporarilyEditingAsBlocks ]
+				// When temporarily editing content locked blocks,
+				// remove the block editing modes.
+				const removedClientIds = action.clientId
+					? [ action.clientId ]
 					: undefined;
 				const nextDerivedBlockEditingModes =
 					getDerivedBlockEditingModesUpdates( {
