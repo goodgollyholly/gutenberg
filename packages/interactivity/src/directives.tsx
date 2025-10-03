@@ -173,26 +173,57 @@ const getGlobalEventDirective = (
 	};
 };
 
+const getEvaluatedItemKey = (
+	inheritedValue: any,
+	namespace: string,
+	item: unknown,
+	itemProp: string,
+	eachKey: DirectiveEntry[]
+) => {
+	const clientContextWithItem = {
+		...inheritedValue.client,
+		[ namespace ]: {
+			...inheritedValue.client[ namespace ],
+			[ itemProp ]: item,
+		},
+	};
+
+	const scope = {
+		...getScope(),
+		context: clientContextWithItem,
+		serverContext: inheritedValue.server,
+	};
+
+	return eachKey ? getEvaluate( { scope } )( eachKey[ 0 ] ) : item;
+};
+
 const useItemContexts = function* (
 	inheritedValue: any,
 	namespace: string,
 	items: Iterable< unknown >,
-	itemProp: string
+	itemProp: string,
+	eachKey: DirectiveEntry[]
 ) {
-	const { current: itemContexts } = useRef< any >( [] );
+	const { current: itemContexts } = useRef< any >( {} );
 
-	let index = 0;
 	for ( const item of items ) {
-		if ( ! itemContexts[ index ] ) {
-			itemContexts[ index ] = proxifyContext(
+		const key = getEvaluatedItemKey(
+			inheritedValue,
+			namespace,
+			item,
+			itemProp,
+			eachKey
+		);
+
+		if ( ! itemContexts[ key ] ) {
+			itemContexts[ key ] = proxifyContext(
 				proxifyState( namespace, {
 					[ itemProp ]: item,
 				} ),
 				inheritedValue.client[ namespace ]
 			);
 		}
-		yield [ item, itemContexts[ index ] ];
-		index += 1;
+		yield [ itemContexts[ key ], key ];
 	}
 };
 
@@ -726,10 +757,11 @@ export default () => {
 				inheritedValue,
 				namespace,
 				iterable,
-				itemProp
+				itemProp,
+				eachKey
 			);
 
-			for ( const [ item, itemContext ] of itemContexts ) {
+			for ( const [ itemContext, key ] of itemContexts ) {
 				const mergedContext = {
 					client: {
 						...inheritedValue.client,
@@ -737,15 +769,6 @@ export default () => {
 					},
 					server: { ...inheritedValue.server },
 				};
-
-				const scope = {
-					...getScope(),
-					context: mergedContext.client,
-					serverContext: mergedContext.server,
-				};
-				const key = eachKey
-					? getEvaluate( { scope } )( eachKey[ 0 ] )
-					: item;
 
 				result.push(
 					createElement(
