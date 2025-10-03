@@ -48,10 +48,8 @@ function ContentLockControlsPure( { clientId } ) {
 		return null;
 	}
 
-	const showStopEditingAsBlocks = isEditingAsBlocks && ! isContentLocked;
-
 	return (
-		showStopEditingAsBlocks && (
+		isEditingAsBlocks && (
 			<BlockControls group="other">
 				<ToolbarButton onClick={ stopEditingAsBlockCallback }>
 					{ __( 'Done' ) }
