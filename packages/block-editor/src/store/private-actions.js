@@ -391,8 +391,6 @@ export const modifyContentLockBlock =
 
 /**
  * Action that stops temporarily editing as blocks.
- *
- * @param {string} clientId The block's clientId.
  */
 export function stopEditingAsBlocks() {
 	return ( { dispatch, registry } ) => {
