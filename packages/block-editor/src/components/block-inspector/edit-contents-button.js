@@ -18,22 +18,28 @@ export default function EditContentsButton( { clientId } ) {
 	const { modifyContentLockBlock, stopEditingAsBlocks } = unlock(
 		useDispatch( blockEditorStore )
 	);
-	const { attributes, editedClientId } = useSelect(
-		( select ) => {
-			const { getBlockAttributes, getTemporarilyEditingAsBlocks } =
-				unlock( select( blockEditorStore ) );
+	const { attributes, isContentOnlyTemplateLocked, editedClientId } =
+		useSelect(
+			( select ) => {
+				const {
+					getBlockAttributes,
+					getTemporarilyEditingAsBlocks,
+					getTemplateLock,
+				} = unlock( select( blockEditorStore ) );
 
-			return {
-				attributes: getBlockAttributes( clientId ),
-				editedClientId: getTemporarilyEditingAsBlocks(),
-			};
-		},
-		[ clientId ]
-	);
+				return {
+					attributes: getBlockAttributes( clientId ),
+					editedClientId: getTemporarilyEditingAsBlocks(),
+					isContentOnlyTemplateLocked:
+						getTemplateLock( clientId ) === 'contentOnly',
+				};
+			},
+			[ clientId ]
+		);
 
 	if (
-		! attributes?.metadata?.patternName ||
-		attributes?.templateLock === 'contentOnly'
+		! attributes?.metadata?.patternName &&
+		! isContentOnlyTemplateLocked
 	) {
 		return null;
 	}
@@ -51,7 +57,7 @@ export default function EditContentsButton( { clientId } ) {
 				}
 			} }
 		>
-			{ editedClientId ? __( 'Finish editing' ) : __( 'Edit layout' ) }
+			{ editedClientId ? __( 'Finish editing' ) : __( 'Edit design' ) }
 		</Button>
 	);
 }
