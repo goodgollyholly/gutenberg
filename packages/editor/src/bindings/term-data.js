@@ -57,8 +57,9 @@ function createDataFields( termDataValues, idValue ) {
  * If the value is not available based on context, like in templates,
  * it falls back to the default value, label, or key.
  *
- * @param {Object} select  The select function from the data store.
- * @param {Object} context The context provided.
+ * @param {Object} select   The select function from the data store.
+ * @param {Object} context  The context provided.
+ * @param {string} clientId The block client ID used to read attributes.
  * @return {Object} List of term data fields with their value and label.
  *
  * @example
@@ -76,23 +77,31 @@ function createDataFields( termDataValues, idValue ) {
  * }
  * ```
  */
-function getTermDataFields( select, context ) {
+function getTermDataFields( select, context, clientId ) {
 	const { getEntityRecord } = select( coreDataStore );
+	const { getBlockAttributes } = select( 'core/block-editor' );
 
 	let termDataValues, dataFields;
-	if ( context?.taxonomy && context?.termId ) {
-		termDataValues = getEntityRecord(
-			'taxonomy',
-			context?.taxonomy,
-			context?.termId
-		);
+
+	// Prefer attributes over context for determining the entity id and taxonomy.
+	const blockAttributes = getBlockAttributes?.( clientId );
+	const entityIdFromAttributes = blockAttributes?.id;
+	const typeFromAttributes = blockAttributes?.type;
+	const taxonomyFromAttributes =
+		typeFromAttributes === 'tag' ? 'post_tag' : typeFromAttributes;
+
+	const termId = entityIdFromAttributes ?? context?.termId;
+	const taxonomy = taxonomyFromAttributes ?? context?.taxonomy;
+
+	if ( taxonomy && termId ) {
+		termDataValues = getEntityRecord( 'taxonomy', taxonomy, termId );
 
 		if ( ! termDataValues && context?.termData ) {
 			termDataValues = context.termData;
 		}
 
 		if ( termDataValues ) {
-			dataFields = createDataFields( termDataValues, context?.termId );
+			dataFields = createDataFields( termDataValues, termId );
 		}
 	} else if ( context?.termData ) {
 		termDataValues = context.termData;
@@ -115,8 +124,8 @@ function getTermDataFields( select, context ) {
 export default {
 	name: 'core/term-data',
 	usesContext: [ 'taxonomy', 'termId', 'termData' ],
-	getValues( { select, context, bindings } ) {
-		const dataFields = getTermDataFields( select, context );
+	getValues( { select, context, bindings, clientId } ) {
+		const dataFields = getTermDataFields( select, context, clientId );
 
 		const newValues = {};
 		for ( const [ attributeName, source ] of Object.entries( bindings ) ) {
@@ -144,8 +153,9 @@ export default {
 			return false;
 		}
 
-		const fieldValue = getTermDataFields( select, context )?.[ args.key ]
-			?.value;
+		const fieldValue = getTermDataFields( select, context, undefined )?.[
+			args.key
+		]?.value;
 		// Empty string or `false` could be a valid value, so we need to check if the field value is undefined.
 		if ( fieldValue === undefined ) {
 			return false;

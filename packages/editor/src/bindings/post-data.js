@@ -10,8 +10,9 @@ import { store as coreDataStore } from '@wordpress/core-data';
  * If the value is not available based on context, like in templates,
  * it falls back to the default value, label, or key.
  *
- * @param {Object} select  The select function from the data store.
- * @param {Object} context The context provided.
+ * @param {Object} select   The select function from the data store.
+ * @param {Object} context  The context provided.
+ * @param {string} clientId The block client ID used to read attributes.
  * @return {Object} List of post data fields with their value and label.
  *
  * @example
@@ -29,16 +30,26 @@ import { store as coreDataStore } from '@wordpress/core-data';
  * }
  * ```
  */
-function getPostDataFields( select, context ) {
+function getPostDataFields( select, context, clientId ) {
 	const { getEditedEntityRecord } = select( coreDataStore );
+	const { getBlockAttributes } = select( 'core/block-editor' );
 
 	let entityDataValues, dataFields;
-	// Try to get the current entity data values.
-	if ( context?.postType && context?.postId ) {
+
+	// Prefer attributes over context for determining the entity id and type.
+	const blockAttributes = getBlockAttributes?.( clientId );
+	const entityIdFromAttributes = blockAttributes?.id;
+	const typeFromAttributes = blockAttributes?.type;
+
+	const postId = entityIdFromAttributes ?? context?.postId;
+	const postType = typeFromAttributes ?? context?.postType;
+
+	// Try to get the current entity data values using resolved identifiers.
+	if ( postType && postId ) {
 		entityDataValues = getEditedEntityRecord(
 			'postType',
-			context?.postType,
-			context?.postId
+			postType,
+			postId
 		);
 		dataFields = {
 			date: {
@@ -49,6 +60,11 @@ function getPostDataFields( select, context ) {
 			modified: {
 				label: __( 'Post Modified Date' ),
 				value: entityDataValues?.modified,
+				type: 'string',
+			},
+			link: {
+				label: __( 'Link' ),
+				value: entityDataValues?.link,
 				type: 'string',
 			},
 		};
@@ -66,8 +82,8 @@ function getPostDataFields( select, context ) {
  */
 export default {
 	name: 'core/post-data',
-	getValues( { select, context, bindings } ) {
-		const dataFields = getPostDataFields( select, context );
+	getValues( { select, context, bindings, clientId } ) {
+		const dataFields = getPostDataFields( select, context, clientId );
 
 		const newValues = {};
 		for ( const [ attributeName, source ] of Object.entries( bindings ) ) {
@@ -103,8 +119,9 @@ export default {
 			return false;
 		}
 
-		const fieldValue = getPostDataFields( select, context )?.[ args.key ]
-			?.value;
+		const fieldValue = getPostDataFields( select, context, undefined )?.[
+			args.key
+		]?.value;
 		// Empty string or `false` could be a valid value, so we need to check if the field value is undefined.
 		if ( fieldValue === undefined ) {
 			return false;
@@ -122,9 +139,9 @@ export default {
 
 		return true;
 	},
-	getFieldsList( { select, context } ) {
+	getFieldsList( { select, context, clientId } ) {
 		// Deprecated, will be removed after 6.9.
-		return getPostDataFields( select, context );
+		return getPostDataFields( select, context, clientId );
 	},
 	editorUI( { select, context } ) {
 		const selectedBlock = select( 'core/block-editor' ).getSelectedBlock();

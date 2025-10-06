@@ -23,12 +23,23 @@ function gutenberg_block_bindings_term_data_get_value( array $source_args, $bloc
 		return null;
 	}
 
-	if ( empty( $block_instance->context['termId'] ) || empty( $block_instance->context['taxonomy'] ) ) {
-		return null;
-	}
+    // Prefer attributes over context for determining the entity id and taxonomy; fall back to context if needed.
+    $entity_id = $block_instance->attributes['id'] ?? null;
+    $type      = $block_instance->attributes['type'] ?? '';
 
-	$term_id  = $block_instance->context['termId'];
-	$taxonomy = $block_instance->context['taxonomy'];
+    if ( empty( $entity_id ) ) {
+        $term_id  = $block_instance->context['termId'] ?? null;
+        $taxonomy = $block_instance->context['taxonomy'] ?? '';
+    } else {
+        $term_id  = $entity_id;
+        // Map UI shorthand to taxonomy slug when using attributes.
+        $taxonomy = ( 'tag' === $type ) ? 'post_tag' : $type;
+    }
+
+    // If neither attributes nor context provide the required identifiers, bail early.
+    if ( empty( $term_id ) || empty( $taxonomy ) ) {
+        return null;
+    }
 
 	// Get the term data.
 	$term = get_term( $term_id, $taxonomy );
@@ -52,6 +63,7 @@ function gutenberg_block_bindings_term_data_get_value( array $source_args, $bloc
 			return esc_html( $term->name );
 
 		case 'link':
+			// Only taxonomy entities are supported by Term Data.
 			return esc_url( get_term_link( $term ) );
 
 		case 'slug':

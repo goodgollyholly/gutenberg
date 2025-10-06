@@ -23,10 +23,17 @@ function gutenberg_block_bindings_post_data_get_value( array $source_args, $bloc
 		return null;
 	}
 
-	if ( empty( $block_instance->context['postId'] ) ) {
-		return null;
-	}
-	$post_id = $block_instance->context['postId'];
+    // Prefer attributes over context for determining the entity id; fall back to context if needed.
+    $entity_id = $block_instance->attributes['id'] ?? null;
+    if ( empty( $entity_id ) ) {
+        $entity_id = $block_instance->context['postId'] ?? null;
+    }
+
+    // If neither attributes nor context provide an id, bail early.
+    if ( empty( $entity_id ) ) {
+        return null;
+    }
+    $post_id = $entity_id;
 
 	// If a post isn't public, we need to prevent unauthorized users from accessing the post data.
 	$post = get_post( $post_id );
@@ -46,6 +53,11 @@ function gutenberg_block_bindings_post_data_get_value( array $source_args, $bloc
 			return '';
 		}
 	}
+
+    if ( 'link' === $source_args['key'] ) {
+        $permalink = get_permalink( $post_id );
+        return is_wp_error( $permalink ) ? null : esc_url( $permalink );
+    }
 }
 
 /**
