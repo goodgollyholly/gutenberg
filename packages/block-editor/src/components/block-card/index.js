@@ -73,29 +73,54 @@ function BlockCard( {
 		( { title, icon, description } = blockType );
 	}
 
-	const { parentNavBlockClientId } = useSelect( ( select ) => {
-		const { getSelectedBlockClientId, getBlockParentsByBlockName } =
-			select( blockEditorStore );
+	const { parentNavBlockClientId, parentSectionClientId } = useSelect(
+		( select ) => {
+			const {
+				getSelectedBlockClientId,
+				getBlockParentsByBlockName,
+				getTemporarilyEditingAsBlocks,
+				isWithinTemporarilyEditedSection,
+			} = unlock( select( blockEditorStore ) );
 
-		const _selectedBlockClientId = getSelectedBlockClientId();
+			const _selectedBlockClientId = getSelectedBlockClientId();
+			const temporarilyEditedSection = getTemporarilyEditingAsBlocks();
+			const isChildOfTemporarilyEditedSection =
+				temporarilyEditedSection &&
+				temporarilyEditedSection !== _selectedBlockClientId
+					? isWithinTemporarilyEditedSection( _selectedBlockClientId )
+					: undefined;
 
-		return {
-			parentNavBlockClientId: getBlockParentsByBlockName(
-				_selectedBlockClientId,
-				'core/navigation',
-				true
-			)[ 0 ],
-		};
-	}, [] );
+			return {
+				parentNavBlockClientId: getBlockParentsByBlockName(
+					_selectedBlockClientId,
+					'core/navigation',
+					true
+				)[ 0 ],
+				parentSectionClientId: isChildOfTemporarilyEditedSection
+					? temporarilyEditedSection
+					: undefined,
+			};
+		},
+		[]
+	);
 
 	const { selectBlock } = useDispatch( blockEditorStore );
 
 	return (
 		<div className={ clsx( 'block-editor-block-card', className ) }>
-			{ parentNavBlockClientId && ( // This is only used by the Navigation block for now. It's not ideal having Navigation block specific code here.
+			{ ( parentNavBlockClientId || parentSectionClientId ) && ( // This is only used by the Navigation block for now. It's not ideal having Navigation block specific code here.
 				<Button
-					onClick={ () => selectBlock( parentNavBlockClientId ) }
-					label={ __( 'Go to parent Navigation block' ) }
+					onClick={ () =>
+						selectBlock(
+							parentNavBlockClientId || parentSectionClientId
+						)
+					}
+					label={
+						parentNavBlockClientId
+							? __( 'Go to parent Navigation block' )
+							: // TODO - improve copy, not sure that we should use the term 'section'
+							  __( 'Go to parent section' )
+					}
 					style={
 						// TODO: This style override is also used in ToolsPanelHeader.
 						// It should be supported out-of-the-box by Button.
