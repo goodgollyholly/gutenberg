@@ -17,13 +17,21 @@ export default function useListViewClientIds( { blocks, rootClientId } ) {
 				getDraggedBlockClientIds,
 				getSelectedBlockClientIds,
 				getEnabledClientIdsTree,
+				getTemporarilyEditingAsBlocks,
 			} = unlock( select( blockEditorStore ) );
+
+			const temporarilyEditedBlock = getTemporarilyEditingAsBlocks();
 
 			return {
 				selectedClientIds: getSelectedBlockClientIds(),
 				draggedClientIds: getDraggedBlockClientIds(),
 				clientIdsTree:
-					blocks ?? getEnabledClientIdsTree( rootClientId ),
+					blocks ?? temporarilyEditedBlock
+						? getEnabledClientIdsTree(
+								temporarilyEditedBlock,
+								true /* include self in results */
+						  )
+						: getEnabledClientIdsTree( rootClientId ),
 			};
 		},
 		[ blocks, rootClientId ]

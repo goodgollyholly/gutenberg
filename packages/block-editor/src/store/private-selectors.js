@@ -113,7 +113,11 @@ export function isContainerInsertableToInWriteMode(
 	);
 }
 
-function getEnabledClientIdsTreeUnmemoized( state, rootClientId ) {
+function getEnabledClientIdsTreeUnmemoized(
+	state,
+	rootClientId,
+	includeRoot = false
+) {
 	const blockOrder = getBlockOrder( state, rootClientId );
 	const result = [];
 
@@ -127,6 +131,18 @@ function getEnabledClientIdsTreeUnmemoized( state, rootClientId ) {
 		} else {
 			result.push( ...innerBlocks );
 		}
+	}
+
+	if (
+		includeRoot &&
+		getBlockEditingMode( state, rootClientId ) !== 'disabled'
+	) {
+		return [
+			{
+				clientId: rootClientId,
+				innerBlocks: result,
+			},
+		];
 	}
 
 	return result;
