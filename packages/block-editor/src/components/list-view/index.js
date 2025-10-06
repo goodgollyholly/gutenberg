@@ -119,16 +119,20 @@ function ListViewComponent(
 	const blockIndexes = useListViewBlockIndexes( clientIdsTree );
 
 	const { getBlock } = useSelect( blockEditorStore );
-	const { visibleBlockCount } = useSelect(
+	const { visibleBlockCount, isFocusMode } = useSelect(
 		( select ) => {
-			const { getGlobalBlockCount, getClientIdsOfDescendants } =
-				select( blockEditorStore );
+			const {
+				getGlobalBlockCount,
+				getClientIdsOfDescendants,
+				getSettings,
+			} = select( blockEditorStore );
 			const draggedBlockCount =
 				draggedClientIds?.length > 0
 					? getClientIdsOfDescendants( draggedClientIds ).length + 1
 					: 0;
 			return {
 				visibleBlockCount: getGlobalBlockCount() - draggedBlockCount,
+				isFocusMode: getSettings().focusMode,
 			};
 		},
 		[ draggedClientIds ]
@@ -365,6 +369,7 @@ function ListViewComponent(
 					'is-dragging':
 						draggedClientIds?.length > 0 &&
 						blockDropTargetIndex !== undefined,
+					'is-focus-mode': isFocusMode,
 				} ) }
 				aria-label={ __( 'Block navigation structure' ) }
 				ref={ treeGridRef }
