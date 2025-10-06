@@ -44,7 +44,12 @@ function ContentLockControlsPure( { clientId } ) {
 		stopEditingAsBlocks( clientId );
 	}, [ clientId, stopEditingAsBlocks ] );
 
-	if ( ! isContentLocked && ! isEditingAsBlocks ) {
+	// Hide the Done button when the content only pattern insertion experiment is active.
+	// This is replaced by an alternative UI in the experiment.
+	if (
+		window?.__experimentalContentOnlyPatternInsertion ||
+		( ! isContentLocked && ! isEditingAsBlocks )
+	) {
 		return null;
 	}
 
