@@ -463,7 +463,7 @@ function Layout( {
 				kind: 'postType',
 				name: 'wp_template',
 			} );
-			const { getBlockSelectionStart } = unlock(
+			const { getBlockSelectionStart, isZoomOut } = unlock(
 				select( blockEditorStore )
 			);
 			const {
@@ -492,8 +492,9 @@ function Layout( {
 				hasBlockSelected: !! getBlockSelectionStart(),
 				showIconLabels: get( 'core', 'showIconLabels' ),
 				isDistractionFree: get( 'core', 'distractionFree' ),
-				// @ZOOMOUTMODE
-				showMetaBoxes: isNotDesignPostType || isDirectlyEditingPattern,
+				showMetaBoxes:
+					( isNotDesignPostType && ! isZoomOut() ) ||
+					isDirectlyEditingPattern,
 				isWelcomeGuideVisible: isFeatureActive( 'welcomeGuide' ),
 				templateId:
 					supportsTemplateMode &&
@@ -502,7 +503,6 @@ function Layout( {
 					! isEditingTemplate
 						? _templateId
 						: null,
-				// @ZOOMOUTMODE
 				enablePaddingAppender:
 					isRenderingPostOnly && isNotDesignPostType,
 				isDevicePreview: getDeviceType() !== 'Desktop',
