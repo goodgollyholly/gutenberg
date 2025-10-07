@@ -2342,6 +2342,30 @@ function getDerivedBlockEditingModesForTree(
 			return;
 		}
 
+		if ( state.temporarilyEditingAsBlocks ) {
+			// If this is the 'temporarily edited' block, use the default mode.
+			if ( state.temporarilyEditingAsBlocks === clientId ) {
+				derivedBlockEditingModes.set( clientId, 'default' );
+				return;
+			}
+
+			// Check if this block has the 'temporarily edited' block as an ancestor.
+			// If so return the default mode.
+			const parentTempEditedClientId = findParentInClientIdsList(
+				state,
+				clientId,
+				[ state.temporarilyEditingAsBlocks ]
+			);
+			if ( parentTempEditedClientId ) {
+				derivedBlockEditingModes.set( clientId, 'default' );
+				return;
+			}
+
+			// All other blocks in this mode are disabled.
+			derivedBlockEditingModes.set( clientId, 'disabled' );
+			return;
+		}
+
 		// Disabled explicit block editing modes are inherited by children.
 		// It's an expensive calculation, so only do it if there are disabled blocks.
 		if ( hasDisabledBlocks ) {
@@ -3008,55 +3032,6 @@ export function withDerivedBlockEditingModes( reducer ) {
 				}
 				break;
 			}
-			case 'SET_TEMPORARILY_EDITING_AS_BLOCKS': {
-				// When temporary editing of content locked blocks ends
-				// add block editing modes back again. Get the client id
-				// of the block from the previous store state.
-				const addedBlocks = ! action.clientId
-					? [
-							nextState.blocks.byClientId.get(
-								state.temporarilyEditingAsBlocks
-							),
-					  ]
-					: undefined;
-				// When temporarily editing content locked blocks,
-				// remove the block editing modes.
-				const removedClientIds = action.clientId
-					? [ action.clientId ]
-					: undefined;
-				const nextDerivedBlockEditingModes =
-					getDerivedBlockEditingModesUpdates( {
-						prevState: state,
-						nextState,
-						addedBlocks,
-						removedClientIds,
-						isNavMode: false,
-					} );
-				const nextDerivedNavModeBlockEditingModes =
-					getDerivedBlockEditingModesUpdates( {
-						prevState: state,
-						nextState,
-						addedBlocks,
-						removedClientIds,
-						isNavMode: true,
-					} );
-
-				if (
-					nextDerivedBlockEditingModes ||
-					nextDerivedNavModeBlockEditingModes
-				) {
-					return {
-						...nextState,
-						derivedBlockEditingModes:
-							nextDerivedBlockEditingModes ??
-							state.derivedBlockEditingModes,
-						derivedNavModeBlockEditingModes:
-							nextDerivedNavModeBlockEditingModes ??
-							state.derivedNavModeBlockEditingModes,
-					};
-				}
-				break;
-			}
 			case 'UPDATE_SETTINGS': {
 				// Recompute the entire tree if the section root changes.
 				if (
@@ -3080,6 +3055,7 @@ export function withDerivedBlockEditingModes( reducer ) {
 				break;
 			}
 			case 'RESET_BLOCKS':
+			case 'SET_TEMPORARILY_EDITING_AS_BLOCKS':
 			case 'SET_EDITOR_MODE':
 			case 'RESET_ZOOM_LEVEL':
 			case 'SET_ZOOM_LEVEL': {
