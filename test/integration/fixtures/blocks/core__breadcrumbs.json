@@ -3,6 +3,7 @@
 		"name": "core/breadcrumbs",
 		"isValid": true,
 		"attributes": {
+			"type": "auto",
 			"separator": "/",
 			"showHomeLink": true
 		},
