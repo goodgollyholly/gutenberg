@@ -314,10 +314,132 @@ export const BlockBindingsPanel = ( { name: blockName, metadata } ) => {
 			}
 
 			const registeredSources = getBlockBindingsSources();
+			if ( globalThis.IS_GUTENBERG_PLUGIN ) {
+				Object.entries( registeredSources ).forEach(
+					( [
+						sourceName,
+						{
+							editorUI,
+							getFieldsList,
+							usesContext,
+							label,
+							getValues,
+						},
+					] ) => {
+						if ( editorUI ) {
+							// Populate context.
+							const context = {};
+							if ( usesContext?.length ) {
+								for ( const key of usesContext ) {
+									context[ key ] = blockContext[ key ];
+								}
+							}
+
+							const editorUIResult = editorUI( {
+								select,
+								context,
+							} );
+							const hasCompatibleData = _bindableAttributes.some(
+								( attribute ) => {
+									const _attributeType =
+										getBlockType( blockName ).attributes?.[
+											attribute
+										]?.type;
+									const attributeType =
+										_attributeType === 'rich-text'
+											? 'string'
+											: _attributeType;
+
+									return editorUIResult.data?.some(
+										( item ) => item?.type === attributeType
+									);
+								}
+							);
+
+							if ( hasCompatibleData ) {
+								_sources[ sourceName ] = {
+									...editorUIResult,
+									label,
+									getValues,
+								};
+							}
+						} else if ( getFieldsList ) {
+							// Backward compatibility: Convert getFieldsList to editorUI format
+							const context = {};
+							if ( usesContext?.length ) {
+								for ( const key of usesContext ) {
+									context[ key ] = blockContext[ key ];
+								}
+							}
+
+							const fieldsListResult = getFieldsList( {
+								select,
+								context,
+							} );
+
+							if ( fieldsListResult ) {
+								// Convert getFieldsList format to editorUI format
+								const data = Object.entries(
+									fieldsListResult
+								).map( ( [ key, field ] ) => ( {
+									label: field.label || key,
+									type: field.type || 'string',
+									args: { key },
+								} ) );
+
+								const hasCompatibleData =
+									_bindableAttributes.some( ( attribute ) => {
+										const _attributeType =
+											getBlockType( blockName )
+												.attributes?.[ attribute ]
+												?.type;
+										const attributeType =
+											_attributeType === 'rich-text'
+												? 'string'
+												: _attributeType;
+
+										return data.some(
+											( item ) =>
+												item?.type === attributeType
+										);
+									} );
+
+								if ( hasCompatibleData ) {
+									_sources[ sourceName ] = {
+										mode: 'dropdown', // Default mode for backward compatibility
+										data,
+										label,
+										getValues,
+									};
+								}
+							}
+						} else {
+							/*
+							 * Include sources without editorUI if they are introduced
+							 * by other means (e.g. code editor).
+							 */
+							_sources[ sourceName ] = {
+								label,
+								getValues,
+							};
+						}
+					}
+				);
+				return {
+					sources:
+						Object.values( _sources ).length > 0
+							? _sources
+							: EMPTY_OBJECT,
+					canUpdateBlockBindings:
+						select( blockEditorStore ).getSettings()
+							.canUpdateBlockBindings,
+					bindableAttributes: _bindableAttributes,
+				};
+			}
 			Object.entries( registeredSources ).forEach(
 				( [
 					sourceName,
-					{ editorUI, getFieldsList, usesContext, label, getValues },
+					{ editorUI, usesContext, label, getValues },
 				] ) => {
 					if ( editorUI ) {
 						// Populate context.
@@ -356,56 +478,6 @@ export const BlockBindingsPanel = ( { name: blockName, metadata } ) => {
 								getValues,
 							};
 						}
-					} else if ( getFieldsList ) {
-						// Backward compatibility: Convert getFieldsList to editorUI format
-						const context = {};
-						if ( usesContext?.length ) {
-							for ( const key of usesContext ) {
-								context[ key ] = blockContext[ key ];
-							}
-						}
-
-						const fieldsListResult = getFieldsList( {
-							select,
-							context,
-						} );
-
-						if ( fieldsListResult ) {
-							// Convert getFieldsList format to editorUI format
-							const data = Object.entries( fieldsListResult ).map(
-								( [ key, field ] ) => ( {
-									label: field.label || key,
-									type: field.type || 'string',
-									args: { key },
-								} )
-							);
-
-							const hasCompatibleData = _bindableAttributes.some(
-								( attribute ) => {
-									const _attributeType =
-										getBlockType( blockName ).attributes?.[
-											attribute
-										]?.type;
-									const attributeType =
-										_attributeType === 'rich-text'
-											? 'string'
-											: _attributeType;
-
-									return data.some(
-										( item ) => item?.type === attributeType
-									);
-								}
-							);
-
-							if ( hasCompatibleData ) {
-								_sources[ sourceName ] = {
-									mode: 'dropdown', // Default mode for backward compatibility
-									data,
-									label,
-									getValues,
-								};
-							}
-						}
 					} else {
 						/*
 						 * Include sources without editorUI if they are introduced
@@ -418,7 +490,6 @@ export const BlockBindingsPanel = ( { name: blockName, metadata } ) => {
 					}
 				}
 			);
-
 			return {
 				sources:
 					Object.values( _sources ).length > 0
