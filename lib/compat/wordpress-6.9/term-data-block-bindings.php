@@ -26,7 +26,7 @@ function gutenberg_block_bindings_term_data_get_value( array $source_args, $bloc
 	// Hardcoded exception for navigation blocks (temporary for WP 6.9)
 	// TODO: Replace with proper binding configuration API in WP 7.0
 	// See https://github.com/WordPress/gutenberg/pull/71002
-	$block_name = $block_instance->name ?? '';
+	$block_name          = $block_instance->name ?? '';
 	$is_navigation_block = in_array(
 		$block_name,
 		array( 'core/navigation-link', 'core/navigation-submenu' ),
@@ -36,12 +36,12 @@ function gutenberg_block_bindings_term_data_get_value( array $source_args, $bloc
 	if ( $is_navigation_block ) {
 		// Navigation blocks: read from block attributes
 		$term_id = $block_instance->attributes['id'] ?? null;
-		$type = $block_instance->attributes['type'] ?? '';
+		$type    = $block_instance->attributes['type'] ?? '';
 		// Map UI shorthand to taxonomy slug when using attributes.
 		$taxonomy = ( 'tag' === $type ) ? 'post_tag' : $type;
 	} else {
 		// All other blocks: use context
-		$term_id = $block_instance->context['termId'] ?? null;
+		$term_id  = $block_instance->context['termId'] ?? null;
 		$taxonomy = $block_instance->context['taxonomy'] ?? '';
 	}
 
