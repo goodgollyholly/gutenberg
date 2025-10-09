@@ -86,6 +86,7 @@ function getTermDataFields( select, context, clientId ) {
 
 	// Hardcoded exception for navigation blocks (temporary for WP 6.9)
 	// TODO: Replace with proper binding configuration API in WP 7.0
+	// See https://github.com/WordPress/gutenberg/pull/71002
 	const blockName = getBlockName?.( clientId );
 	const isNavigationBlock =
 		blockName === 'core/navigation-link' ||

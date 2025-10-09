@@ -25,6 +25,7 @@ function gutenberg_block_bindings_term_data_get_value( array $source_args, $bloc
 
 	// Hardcoded exception for navigation blocks (temporary for WP 6.9)
 	// TODO: Replace with proper binding configuration API in WP 7.0
+	// See https://github.com/WordPress/gutenberg/pull/71002
 	$block_name = $block_instance->name ?? '';
 	$is_navigation_block = in_array(
 		$block_name,
