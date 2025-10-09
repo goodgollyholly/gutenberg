@@ -3,6 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { store as coreDataStore } from '@wordpress/core-data';
+import { store as blockEditorStore } from '@wordpress/block-editor';
 
 /**
  * Gets a list of post data fields with their values and labels
@@ -32,17 +33,29 @@ import { store as coreDataStore } from '@wordpress/core-data';
  */
 function getPostDataFields( select, context, clientId ) {
 	const { getEditedEntityRecord } = select( coreDataStore );
-	const { getBlockAttributes } = select( 'core/block-editor' );
+	const { getBlockAttributes, getBlockName } = select( blockEditorStore );
 
 	let entityDataValues, dataFields;
 
-	// Prefer attributes over context for determining the entity id and type.
-	const blockAttributes = getBlockAttributes?.( clientId );
-	const entityIdFromAttributes = blockAttributes?.id;
-	const typeFromAttributes = blockAttributes?.type;
+	// Hardcoded exception for navigation blocks (temporary for WP 6.9)
+	// TODO: Replace with proper binding configuration API in WP 7.0
+	const blockName = getBlockName?.( clientId );
+	const isNavigationBlock =
+		blockName === 'core/navigation-link' ||
+		blockName === 'core/navigation-submenu';
 
-	const postId = entityIdFromAttributes ?? context?.postId;
-	const postType = typeFromAttributes ?? context?.postType;
+	let postId, postType;
+
+	if ( isNavigationBlock ) {
+		// Navigation blocks: read from block attributes
+		const blockAttributes = getBlockAttributes?.( clientId );
+		postId = blockAttributes?.id;
+		postType = blockAttributes?.type;
+	} else {
+		// All other blocks: use context
+		postId = context?.postId;
+		postType = context?.postType;
+	}
 
 	// Try to get the current entity data values using resolved identifiers.
 	if ( postType && postId ) {
@@ -63,7 +76,7 @@ function getPostDataFields( select, context, clientId ) {
 				type: 'string',
 			},
 			link: {
-				label: __( 'Link' ),
+				label: __( 'Post Link' ),
 				value: entityDataValues?.link,
 				type: 'string',
 			},
@@ -144,7 +157,7 @@ export default {
 		return getPostDataFields( select, context, clientId );
 	},
 	editorUI( { select, context } ) {
-		const selectedBlock = select( 'core/block-editor' ).getSelectedBlock();
+		const selectedBlock = select( blockEditorStore ).getSelectedBlock();
 		if ( selectedBlock?.name !== 'core/post-date' ) {
 			return {};
 		}

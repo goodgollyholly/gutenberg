@@ -3,6 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { store as coreDataStore } from '@wordpress/core-data';
+import { store as blockEditorStore } from '@wordpress/block-editor';
 
 /**
  * Creates the data fields object with the given term data values and ID value.
@@ -79,19 +80,31 @@ function createDataFields( termDataValues, idValue ) {
  */
 function getTermDataFields( select, context, clientId ) {
 	const { getEntityRecord } = select( coreDataStore );
-	const { getBlockAttributes } = select( 'core/block-editor' );
+	const { getBlockAttributes, getBlockName } = select( blockEditorStore );
 
 	let termDataValues, dataFields;
 
-	// Prefer attributes over context for determining the entity id and taxonomy.
-	const blockAttributes = getBlockAttributes?.( clientId );
-	const entityIdFromAttributes = blockAttributes?.id;
-	const typeFromAttributes = blockAttributes?.type;
-	const taxonomyFromAttributes =
-		typeFromAttributes === 'tag' ? 'post_tag' : typeFromAttributes;
+	// Hardcoded exception for navigation blocks (temporary for WP 6.9)
+	// TODO: Replace with proper binding configuration API in WP 7.0
+	const blockName = getBlockName?.( clientId );
+	const isNavigationBlock =
+		blockName === 'core/navigation-link' ||
+		blockName === 'core/navigation-submenu';
 
-	const termId = entityIdFromAttributes ?? context?.termId;
-	const taxonomy = taxonomyFromAttributes ?? context?.taxonomy;
+	let termId, taxonomy;
+
+	if ( isNavigationBlock ) {
+		// Navigation blocks: read from block attributes
+		const blockAttributes = getBlockAttributes?.( clientId );
+		termId = blockAttributes?.id;
+		const typeFromAttributes = blockAttributes?.type;
+		taxonomy =
+			typeFromAttributes === 'tag' ? 'post_tag' : typeFromAttributes;
+	} else {
+		// All other blocks: use context
+		termId = context?.termId;
+		taxonomy = context?.taxonomy;
+	}
 
 	if ( taxonomy && termId ) {
 		termDataValues = getEntityRecord( 'taxonomy', taxonomy, termId );

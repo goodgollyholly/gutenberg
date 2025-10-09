@@ -23,17 +23,29 @@ function gutenberg_block_bindings_post_data_get_value( array $source_args, $bloc
 		return null;
 	}
 
-    // Prefer attributes over context for determining the entity id; fall back to context if needed.
-    $entity_id = $block_instance->attributes['id'] ?? null;
-    if ( empty( $entity_id ) ) {
-        $entity_id = $block_instance->context['postId'] ?? null;
-    }
+	// Hardcoded exception for navigation blocks (temporary for WP 6.9)
+	// TODO: Replace with proper binding configuration API in WP 7.0
+	$block_name = $block_instance->name ?? '';
+	$is_navigation_block = in_array(
+		$block_name,
+		array( 'core/navigation-link', 'core/navigation-submenu' ),
+		true
+	);
 
-    // If neither attributes nor context provide an id, bail early.
-    if ( empty( $entity_id ) ) {
-        return null;
-    }
-    $post_id = $entity_id;
+	if ( $is_navigation_block ) {
+		// Navigation blocks: read from block attributes
+		$post_id = $block_instance->attributes['id'] ?? null;
+		$post_type = $block_instance->attributes['type'] ?? null;
+	} else {
+		// All other blocks: use context
+		$post_id = $block_instance->context['postId'] ?? null;
+		$post_type = $block_instance->context['postType'] ?? null;
+	}
+
+	// If we don't have an entity ID, bail early.
+	if ( empty( $post_id ) ) {
+		return null;
+	}
 
 	// If a post isn't public, we need to prevent unauthorized users from accessing the post data.
 	$post = get_post( $post_id );

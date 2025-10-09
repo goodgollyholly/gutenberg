@@ -23,23 +23,31 @@ function gutenberg_block_bindings_term_data_get_value( array $source_args, $bloc
 		return null;
 	}
 
-    // Prefer attributes over context for determining the entity id and taxonomy; fall back to context if needed.
-    $entity_id = $block_instance->attributes['id'] ?? null;
-    $type      = $block_instance->attributes['type'] ?? '';
+	// Hardcoded exception for navigation blocks (temporary for WP 6.9)
+	// TODO: Replace with proper binding configuration API in WP 7.0
+	$block_name = $block_instance->name ?? '';
+	$is_navigation_block = in_array(
+		$block_name,
+		array( 'core/navigation-link', 'core/navigation-submenu' ),
+		true
+	);
 
-    if ( empty( $entity_id ) ) {
-        $term_id  = $block_instance->context['termId'] ?? null;
-        $taxonomy = $block_instance->context['taxonomy'] ?? '';
-    } else {
-        $term_id  = $entity_id;
-        // Map UI shorthand to taxonomy slug when using attributes.
-        $taxonomy = ( 'tag' === $type ) ? 'post_tag' : $type;
-    }
+	if ( $is_navigation_block ) {
+		// Navigation blocks: read from block attributes
+		$term_id = $block_instance->attributes['id'] ?? null;
+		$type = $block_instance->attributes['type'] ?? '';
+		// Map UI shorthand to taxonomy slug when using attributes.
+		$taxonomy = ( 'tag' === $type ) ? 'post_tag' : $type;
+	} else {
+		// All other blocks: use context
+		$term_id = $block_instance->context['termId'] ?? null;
+		$taxonomy = $block_instance->context['taxonomy'] ?? '';
+	}
 
-    // If neither attributes nor context provide the required identifiers, bail early.
-    if ( empty( $term_id ) || empty( $taxonomy ) ) {
-        return null;
-    }
+	// If we don't have required identifiers, bail early.
+	if ( empty( $term_id ) || empty( $taxonomy ) ) {
+		return null;
+	}
 
 	// Get the term data.
 	$term = get_term( $term_id, $taxonomy );
