@@ -6,7 +6,7 @@ import clsx from 'clsx';
 /**
  * WordPress dependencies
  */
-import { useState, RawHTML, useEffect } from '@wordpress/element';
+import { useState, RawHTML, useEffect, useRef } from '@wordpress/element';
 import {
 	__experimentalText as Text,
 	__experimentalHStack as HStack,
@@ -26,6 +26,11 @@ import {
 	store as blockEditorStore,
 	privateApis as blockEditorPrivateApis,
 } from '@wordpress/block-editor';
+import {
+	useFloating,
+	offset as offsetMiddleware,
+	autoUpdate,
+} from '@floating-ui/react-dom';
 
 /**
  * Internal dependencies
@@ -35,7 +40,9 @@ import CommentAuthorInfo from './comment-author-info';
 import CommentForm from './comment-form';
 import { getCommentExcerpt, focusCommentThread } from './utils';
 
-const { useBlockElement } = unlock( blockEditorPrivateApis );
+const { useBlockElement, useBlockElementRef } = unlock(
+	blockEditorPrivateApis
+);
 const { Menu } = unlock( componentsPrivateApis );
 
 /**
@@ -48,6 +55,7 @@ const { Menu } = unlock( componentsPrivateApis );
  * @param {Function} props.onCommentDelete     - The function to delete a comment.
  * @param {Function} props.setShowCommentBoard - The function to set the comment board visibility.
  * @param {Ref}      props.commentSidebarRef   - The ref to the comment sidebar.
+ * @param {boolean}  props.isFloating          - Whether to render floating threads.
  * @return {React.ReactNode} The rendered Comments component.
  */
 export function Comments( {
@@ -57,8 +65,26 @@ export function Comments( {
 	onCommentDelete,
 	setShowCommentBoard,
 	commentSidebarRef,
+	isFloating = false,
 } ) {
 	const [ selectedThread, setSelectedThread ] = useState();
+
+	// Floating-specific state and functions
+	const [ heights, setHeights ] = useState( {} );
+
+	const updateHeight = ( id, newHeight ) => {
+		setHeights( ( prev ) => {
+			if ( prev[ id ] !== newHeight ) {
+				return { ...prev, [ id ]: newHeight };
+			}
+			return prev;
+		} );
+	};
+
+	const offsetsRef = useRef( {} );
+	const updateOffsets = ( id, offset ) => {
+		offsetsRef.current[ id ] = offset;
+	};
 
 	const blockCommentId = useSelect( ( select ) => {
 		const { getBlockAttributes, getSelectedBlockClientId } =
@@ -91,19 +117,34 @@ export function Comments( {
 		);
 	}
 
-	return threads.map( ( thread ) => (
-		<Thread
-			key={ thread.id }
-			thread={ thread }
-			onAddReply={ onAddReply }
-			onCommentDelete={ onCommentDelete }
-			onEditComment={ onEditComment }
-			isSelected={ selectedThread === thread.id }
-			setSelectedThread={ setSelectedThread }
-			setShowCommentBoard={ setShowCommentBoard }
-			commentSidebarRef={ commentSidebarRef }
-		/>
-	) );
+	return threads.map( ( thread, index ) => {
+		const commonProps = {
+			key: thread.id,
+			thread,
+			onAddReply,
+			onCommentDelete,
+			onEditComment,
+			isSelected: selectedThread === thread.id,
+			setSelectedThread,
+			setShowCommentBoard,
+			commentSidebarRef,
+		};
+
+		return (
+			<Thread
+				key={ thread.id }
+				{ ...commonProps }
+				isFloating={ isFloating }
+				offsetsRef={ isFloating ? offsetsRef : undefined }
+				updateOffsets={ isFloating ? updateOffsets : undefined }
+				updateHeight={ isFloating ? updateHeight : undefined }
+				heights={ isFloating ? heights : undefined }
+				previousThreadId={
+					isFloating ? threads[ index - 1 ]?.id : undefined
+				}
+			/>
+		);
+	} );
 }
 
 function Thread( {
@@ -115,7 +156,74 @@ function Thread( {
 	setSelectedThread,
 	setShowCommentBoard,
 	commentSidebarRef,
+	isFloating = false,
+	offsetsRef,
+	updateOffsets,
+	updateHeight,
+	heights,
+	previousThreadId,
 } ) {
+	// Floating-specific logic
+	const blockRef = useRef();
+	useBlockElementRef( thread.blockClientId, blockRef );
+
+	const selectedBlockElementRect = isFloating
+		? blockRef.current?.getBoundingClientRect()
+		: null;
+	const initialOffsetTop = selectedBlockElementRect?.top;
+
+	const previousOffset =
+		isFloating && previousThreadId
+			? offsetsRef.current[ previousThreadId ]
+			: 0;
+
+	const previousBoardHeight =
+		isFloating && heights[ previousThreadId ]
+			? heights[ previousThreadId ]
+			: 0;
+
+	// If the previous comment board is overlapping this comment, shift it down.
+	const calculateOffset = () => {
+		if (
+			previousOffset &&
+			initialOffsetTop < previousOffset + previousBoardHeight
+		) {
+			return previousOffset - initialOffsetTop + previousBoardHeight + 20;
+		}
+		return -16; // Remove top padding of the comment board so first comment visually aligns with block.
+	};
+
+	// Use floating-ui to track the block element's position. The crossAxis offset
+	// is calculated to avoid overlapping comment boards and will shift the board down.
+	const { y, refs } = useFloating( {
+		placement: 'right-start',
+		middleware: [
+			offsetMiddleware( {
+				crossAxis: calculateOffset(),
+			} ),
+		],
+		whileElementsMounted: autoUpdate,
+	} );
+
+	useEffect( () => {
+		if ( isFloating && blockRef.current ) {
+			refs.setReference( blockRef.current );
+		}
+	}, [ isFloating, blockRef, refs ] );
+
+	useEffect( () => {
+		if ( isFloating && y !== null && y !== 0 ) {
+			updateOffsets( thread.id, y, refs.floating?.current?.clientHeight );
+		}
+	}, [ isFloating, y, refs.floating, thread.id, updateOffsets ] );
+
+	useEffect( () => {
+		if ( isFloating && refs.floating?.current ) {
+			const newHeight = refs.floating?.current.scrollHeight;
+			updateHeight( thread.id, newHeight );
+		}
+	}, [ isFloating, thread.id, updateHeight, refs.floating ] );
+
 	const { toggleBlockHighlight, selectBlock, toggleBlockSpotlight } = unlock(
 		useDispatch( blockEditorStore )
 	);
@@ -175,9 +283,10 @@ function Thread( {
 		<VStack
 			className={ clsx( 'editor-collab-sidebar-panel__thread', {
 				'is-selected': isSelected,
+				'is-floating': isFloating,
 			} ) }
 			id={ `comment-thread-${ thread.id }` }
-			spacing="2"
+			spacing={ isFloating ? '0' : '2' }
 			onClick={ handleCommentSelect }
 			onMouseEnter={ onMouseEnter }
 			onMouseLeave={ onMouseLeave }
@@ -205,6 +314,8 @@ function Thread( {
 			role="listitem"
 			aria-label={ ariaLabel }
 			aria-expanded={ isSelected }
+			ref={ isFloating ? refs.setFloating : undefined }
+			style={ isFloating ? { top: y } : undefined }
 		>
 			<Button
 				className="editor-collab-sidebar-panel__skip-link"
