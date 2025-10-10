@@ -19,6 +19,17 @@ const FORM_FIELD_LAYOUTS = [
 	{
 		type: 'regular',
 		component: FormRegularField,
+		wrapper: ( {
+			children,
+			layout,
+		}: {
+			children: React.ReactNode;
+			layout: Layout;
+		} ) => (
+			<VStack spacing={ ( layout as any ).spacing ?? 4 }>
+				{ children }
+			</VStack>
+		),
 	},
 	{
 		type: 'panel',
@@ -30,6 +41,17 @@ const FORM_FIELD_LAYOUTS = [
 	{
 		type: 'card',
 		component: FormCardField,
+		wrapper: ( {
+			children,
+			layout,
+		}: {
+			children: React.ReactNode;
+			layout: Layout;
+		} ) => (
+			<VStack spacing={ ( layout as any ).spacing ?? 4 }>
+				{ children }
+			</VStack>
+		),
 	},
 	{
 		type: 'row',
