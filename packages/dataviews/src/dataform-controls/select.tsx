@@ -76,6 +76,10 @@ export default function Select< Item >( {
 		return <Spinner />;
 	}
 
+	if ( elements.length === 0 ) {
+		return null;
+	}
+
 	return (
 		<ValidatedSelectControl
 			required={ !! field.isValid?.required }

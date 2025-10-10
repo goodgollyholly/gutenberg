@@ -62,10 +62,10 @@ export default function isItemValid< Item >(
 		}
 
 		if ( field.isValid.elements ) {
-			if ( field.elements ) {
-				const validValues = field.elements.map(
-					( element ) => element.value
-				);
+			if ( field.hasElements ) {
+				// TODO: consider getElements
+				const validValues =
+					field.elements?.map( ( element ) => element.value ) ?? [];
 
 				if ( field.type === 'array' ) {
 					// For arrays, check if all values are valid elements

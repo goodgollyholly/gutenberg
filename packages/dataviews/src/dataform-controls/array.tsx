@@ -6,7 +6,7 @@ import deepMerge from 'deepmerge';
 /**
  * WordPress dependencies
  */
-import { privateApis } from '@wordpress/components';
+import { privateApis, Spinner } from '@wordpress/components';
 import { useCallback, useMemo, useState } from '@wordpress/element';
 import { _n, sprintf } from '@wordpress/i18n';
 
@@ -15,6 +15,7 @@ import { _n, sprintf } from '@wordpress/i18n';
  */
 import type { DataFormControlProps } from '../types';
 import { unlock } from '../lock-unlock';
+import useElements from '../hooks/use-elements';
 
 const { ValidatedFormTokenField } = unlock( privateApis );
 
@@ -24,8 +25,13 @@ export default function ArrayControl< Item >( {
 	onChange,
 	hideLabelFromVision,
 }: DataFormControlProps< Item > ) {
-	const { label, placeholder, elements, getValue, setValue } = field;
+	const { label, placeholder, getValue, setValue } = field;
 	const value = getValue( { item: data } );
+
+	const { elements, isLoading } = useElements(
+		field.elements,
+		field.getElements
+	);
 
 	const [ customValidity, setCustomValidity ] = useState<
 		| {
@@ -126,6 +132,10 @@ export default function ArrayControl< Item >( {
 		},
 		[ onChange, setValue, data ]
 	);
+
+	if ( isLoading ) {
+		return <Spinner />;
+	}
 
 	return (
 		<ValidatedFormTokenField

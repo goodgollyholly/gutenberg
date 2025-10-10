@@ -6,7 +6,7 @@ import deepMerge from 'deepmerge';
 /**
  * WordPress dependencies
  */
-import { privateApis } from '@wordpress/components';
+import { privateApis, Spinner } from '@wordpress/components';
 import { useCallback, useState } from '@wordpress/element';
 
 /**
@@ -14,6 +14,7 @@ import { useCallback, useState } from '@wordpress/element';
  */
 import type { DataFormControlProps } from '../types';
 import { unlock } from '../lock-unlock';
+import useElements from '../hooks/use-elements';
 
 const { ValidatedRadioControl } = unlock( privateApis );
 
@@ -23,7 +24,11 @@ export default function Radio< Item >( {
 	onChange,
 	hideLabelFromVision,
 }: DataFormControlProps< Item > ) {
-	const { label, description, elements, getValue, setValue } = field;
+	const { label, description, getValue, setValue } = field;
+	const { elements, isLoading } = useElements(
+		field.elements,
+		field.getElements
+	);
 	const value = getValue( { item: data } );
 	const [ customValidity, setCustomValidity ] =
 		useState<
@@ -64,21 +69,25 @@ export default function Radio< Item >( {
 		[ data, field, setValue ]
 	);
 
-	if ( elements ) {
-		return (
-			<ValidatedRadioControl
-				required={ !! field.isValid?.required }
-				onValidate={ onValidateControl }
-				customValidity={ customValidity }
-				label={ label }
-				help={ description }
-				onChange={ onChangeControl }
-				options={ elements }
-				selected={ value }
-				hideLabelFromVision={ hideLabelFromVision }
-			/>
-		);
+	if ( isLoading ) {
+		return <Spinner />;
 	}
 
-	return null;
+	if ( elements.length === 0 ) {
+		return null;
+	}
+
+	return (
+		<ValidatedRadioControl
+			required={ !! field.isValid?.required }
+			onValidate={ onValidateControl }
+			customValidity={ customValidity }
+			label={ label }
+			help={ description }
+			onChange={ onChangeControl }
+			options={ elements }
+			selected={ value }
+			hideLabelFromVision={ hideLabelFromVision }
+		/>
+	);
 }

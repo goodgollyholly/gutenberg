@@ -12,7 +12,7 @@ import type {
 	NormalizedField,
 	FieldTypeDefinition,
 } from '../types';
-import renderFromElements from './utils/render-from-elements';
+import RenderFromElements from './utils/render-from-elements';
 
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 function sort( valueA: any, valueB: any, direction: SortDirection ) {
@@ -25,6 +25,7 @@ export default {
 	isValid: {
 		custom: ( item: any, field: NormalizedField< any > ) => {
 			const value = field.getValue( { item } );
+			// TODO: consider getElements
 			if ( field?.elements ) {
 				const validValues = field.elements.map( ( f ) => f.value );
 				if ( ! validValues.includes( value ) ) {
@@ -37,8 +38,8 @@ export default {
 	},
 	Edit: 'password',
 	render: ( { item, field }: DataViewRenderFieldProps< any > ) => {
-		return field.elements
-			? renderFromElements( { item, field } )
+		return field.hasElements
+			? RenderFromElements( { item, field } )
 			: '••••••••';
 	},
 	enableSorting: false,
