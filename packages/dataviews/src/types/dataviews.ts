@@ -63,7 +63,7 @@ export interface NormalizedFilter {
 	/**
 	 * Retrieval function to get the elements.
 	 */
-	getElements: ( () => Promise< Option[] > ) | false;
+	getElements?: () => Promise< Option[] >;
 
 	/**
 	 * Is a single selection filter.

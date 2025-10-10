@@ -87,7 +87,7 @@ export function getControl< Item >(
 		return createConfiguredControl( field.Edit );
 	}
 
-	if ( field.elements && field.type !== 'array' ) {
+	if ( ( field.elements || field.getElements ) && field.type !== 'array' ) {
 		return getControlByType( 'select' );
 	}
 
