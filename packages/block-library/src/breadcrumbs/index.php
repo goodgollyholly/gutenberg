@@ -55,7 +55,7 @@ function render_block_core_breadcrumbs( $attributes, $content, $block ) {
 		$breadcrumb_items = array_merge( $breadcrumb_items, block_core_breadcrumbs_get_terms_breadcrumbs( $post_id, $post_type ) );
 	}
 	// Add current post title (not linked).
-	$breadcrumb_items[] = sprintf( '<span>%s</span>', esc_html( get_the_title( $post ) ) );
+	$breadcrumb_items[] = sprintf( '<span>%s</span>', get_the_title( $post ) );
 	$wrapper_attributes = get_block_wrapper_attributes(
 		array(
 			'style'      => '--separator: "' . addcslashes( $separator, '\\"' ) . '";',
@@ -111,7 +111,7 @@ function block_core_breadcrumbs_get_hierarchical_post_type_breadcrumbs( $post_id
 		$breadcrumb_items[] = sprintf(
 			'<a href="%s">%s</a>',
 			esc_url( get_permalink( $ancestor_id ) ),
-			esc_html( get_the_title( $ancestor_id ) )
+			get_the_title( $ancestor_id )
 		);
 	}
 	return $breadcrumb_items;
