@@ -277,6 +277,11 @@ export type Field< Item > = {
 	elements?: Option[];
 
 	/**
+	 * Retrieval function for elements.
+	 */
+	getElements?: () => Promise< Option[] >;
+
+	/**
 	 * Filter config for the field.
 	 */
 	filterBy?: FilterByConfig | false;
