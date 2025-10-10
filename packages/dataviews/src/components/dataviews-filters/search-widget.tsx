@@ -11,7 +11,12 @@ import clsx from 'clsx';
  */
 import { useInstanceId } from '@wordpress/compose';
 import { __, sprintf } from '@wordpress/i18n';
-import { useState, useMemo, useDeferredValue } from '@wordpress/element';
+import {
+	useEffect,
+	useState,
+	useMemo,
+	useDeferredValue,
+} from '@wordpress/element';
 import {
 	VisuallyHidden,
 	Icon,
@@ -333,8 +338,50 @@ function ComboboxList( { view, filter, onChangeView }: SearchWidgetProps ) {
 	);
 }
 
+const EMPTY_ARRAY: Option[] = [];
+function useElements( filter: NormalizedFilter ) {
+	const staticElements =
+		Array.isArray( filter.elements ) && filter.elements.length > 0
+			? filter.elements
+			: EMPTY_ARRAY;
+	const [ elements, setElements ] = useState< Option[] >( staticElements );
+	const [ isLoading, setIsLoading ] = useState( false );
+
+	useEffect( () => {
+		if ( ! filter.getElements ) {
+			setElements( staticElements );
+			return;
+		}
+
+		setIsLoading( true );
+		filter
+			.getElements()
+			.then( ( fetchedElements ) => {
+				const dynamicElements =
+					Array.isArray( fetchedElements ) &&
+					fetchedElements.length > 0
+						? fetchedElements
+						: staticElements;
+				setElements( dynamicElements );
+			} )
+			.catch( () => {
+				setElements( staticElements );
+			} )
+			.finally( () => {
+				setIsLoading( false );
+			} );
+	}, [ filter ] );
+
+	return {
+		elements,
+		isLoading,
+	};
+}
+
 export default function SearchWidget( props: SearchWidgetProps ) {
-	if ( !! props.filter.getElements && props.filter.elements.length === 0 ) {
+	const { elements, isLoading } = useElements( props.filter );
+
+	if ( isLoading ) {
 		return (
 			<div className="dataviews-filters__search-widget-loading">
 				<Spinner />
@@ -342,6 +389,14 @@ export default function SearchWidget( props: SearchWidgetProps ) {
 		);
 	}
 
-	const Widget = props.filter.elements.length > 10 ? ComboboxList : ListBox;
-	return <Widget { ...props } />;
+	if ( elements.length === 0 ) {
+		return (
+			<div className="dataviews-filters__search-widget-loading">
+				{ __( 'No elements found' ) }
+			</div>
+		);
+	}
+
+	const Widget = elements.length > 10 ? ComboboxList : ListBox;
+	return <Widget { ...props } filter={ { ...props.filter, elements } } />;
 }
