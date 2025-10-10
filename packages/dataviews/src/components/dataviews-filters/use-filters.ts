@@ -30,6 +30,7 @@ function useFilters( fields: NormalizedField< any >[], view: View ) {
 				field: field.id,
 				name: field.label,
 				elements: field.elements ?? [],
+				getElements: field.getElements ?? false,
 				singleSelection: operators.some( ( op ) =>
 					SINGLE_SELECTION_OPERATORS.includes( op )
 				),

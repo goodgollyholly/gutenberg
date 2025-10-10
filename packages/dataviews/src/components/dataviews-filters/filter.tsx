@@ -594,13 +594,15 @@ export default function Filter( {
 				return (
 					<VStack spacing={ 0 } justify="flex-start">
 						<OperatorSelector { ...commonProps } />
-						{ commonProps.filter.elements.length > 0 ? (
+						{ commonProps.filter.elements.length > 0 ||
+						!! commonProps.filter.getElements ? (
 							<SearchWidget
 								{ ...commonProps }
 								filter={ {
 									...commonProps.filter,
 									elements: commonProps.filter.elements,
 								} }
+								fields={ fields }
 							/>
 						) : (
 							<InputWidget { ...commonProps } fields={ fields } />

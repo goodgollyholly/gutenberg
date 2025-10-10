@@ -61,6 +61,11 @@ export interface NormalizedFilter {
 	elements: Option[];
 
 	/**
+	 * Retrieval function to get the elements.
+	 */
+	getElements: ( () => Promise< Option[] > ) | false;
+
+	/**
 	 * Is a single selection filter.
 	 */
 	singleSelection: boolean;

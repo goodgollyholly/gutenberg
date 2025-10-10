@@ -12,14 +12,25 @@ import clsx from 'clsx';
 import { useInstanceId } from '@wordpress/compose';
 import { __, sprintf } from '@wordpress/i18n';
 import { useState, useMemo, useDeferredValue } from '@wordpress/element';
-import { VisuallyHidden, Icon, Composite } from '@wordpress/components';
+import {
+	VisuallyHidden,
+	Icon,
+	Composite,
+	Spinner,
+} from '@wordpress/components';
 import { search, check } from '@wordpress/icons';
 
 /**
  * Internal dependencies
  */
 import { getCurrentValue } from './utils';
-import type { Filter, NormalizedFilter, View, Option } from '../../types';
+import type {
+	Filter,
+	NormalizedFilter,
+	NormalizedField,
+	View,
+	Option,
+} from '../../types';
 
 interface SearchWidgetProps {
 	view: View;
@@ -27,6 +38,7 @@ interface SearchWidgetProps {
 		elements: Option[];
 	};
 	onChangeView: ( view: View ) => void;
+	fields: NormalizedField< any >[];
 }
 
 function normalizeSearchInput( input = '' ) {
@@ -322,6 +334,14 @@ function ComboboxList( { view, filter, onChangeView }: SearchWidgetProps ) {
 }
 
 export default function SearchWidget( props: SearchWidgetProps ) {
+	if ( !! props.filter.getElements && props.filter.elements.length === 0 ) {
+		return (
+			<div className="dataviews-filters__search-widget-loading">
+				<Spinner />
+			</div>
+		);
+	}
+
 	const Widget = props.filter.elements.length > 10 ? ComboboxList : ListBox;
 	return <Widget { ...props } />;
 }
