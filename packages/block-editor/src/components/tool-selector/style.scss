@@ -1,3 +1,6 @@
+@use "@wordpress/base-styles/variables" as *;
+@use "@wordpress/base-styles/colors" as *;
+
 .block-editor-tool-selector__help {
 	margin-top: $grid-unit-10;
 	margin-left: -$grid-unit-10;

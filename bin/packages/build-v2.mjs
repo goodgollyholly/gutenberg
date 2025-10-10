@@ -404,6 +404,10 @@ function wordpressExternalsPlugin(
 					outputDir,
 					`${ assetName }.asset.php`
 				);
+
+				await mkdir( path.dirname( assetFilePath ), {
+					recursive: true,
+				} );
 				await writeFile( assetFilePath, assetContent );
 			} );
 		},
