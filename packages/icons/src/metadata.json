@@ -1,0 +1,1580 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/icon.json",
+	"icons": [
+		{
+			"title": "Add Card",
+			"name": "add-card",
+			"path": "./library/add-card.svg"
+		},
+		{
+			"title": "Add Submenu",
+			"name": "add-submenu",
+			"path": "./library/add-submenu.svg"
+		},
+		{
+			"title": "Add Template",
+			"name": "add-template",
+			"path": "./library/add-template.svg"
+		},
+		{
+			"title": "Align Center",
+			"name": "align-center",
+			"path": "./library/align-center.svg"
+		},
+		{
+			"title": "Align Justify",
+			"name": "align-justify",
+			"path": "./library/align-justify.svg"
+		},
+		{
+			"title": "Align Left",
+			"name": "align-left",
+			"path": "./library/align-left.svg"
+		},
+		{
+			"title": "Align None",
+			"name": "align-none",
+			"path": "./library/align-none.svg"
+		},
+		{
+			"title": "Align Right",
+			"name": "align-right",
+			"path": "./library/align-right.svg"
+		},
+		{
+			"title": "Archive",
+			"name": "archive",
+			"path": "./library/archive.svg"
+		},
+		{
+			"title": "Arrow Down Right",
+			"name": "arrow-down-right",
+			"path": "./library/arrow-down-right.svg"
+		},
+		{
+			"title": "Arrow Down",
+			"name": "arrow-down",
+			"path": "./library/arrow-down.svg"
+		},
+		{
+			"title": "Arrow Left",
+			"name": "arrow-left",
+			"path": "./library/arrow-left.svg"
+		},
+		{
+			"title": "Arrow Right",
+			"name": "arrow-right",
+			"path": "./library/arrow-right.svg"
+		},
+		{
+			"title": "Arrow Up Left",
+			"name": "arrow-up-left",
+			"path": "./library/arrow-up-left.svg"
+		},
+		{
+			"title": "Arrow Up",
+			"name": "arrow-up",
+			"path": "./library/arrow-up.svg"
+		},
+		{
+			"title": "Aspect Ratio",
+			"name": "aspect-ratio",
+			"path": "./library/aspect-ratio.svg"
+		},
+		{
+			"title": "At Symbol",
+			"name": "at-symbol",
+			"path": "./library/at-symbol.svg"
+		},
+		{
+			"title": "Audio",
+			"name": "audio",
+			"path": "./library/audio.svg"
+		},
+		{
+			"title": "Background",
+			"name": "background",
+			"path": "./library/background.svg"
+		},
+		{
+			"title": "Backup",
+			"name": "backup",
+			"path": "./library/backup.svg"
+		},
+		{
+			"title": "Bell Unread",
+			"name": "bell-unread",
+			"path": "./library/bell-unread.svg"
+		},
+		{
+			"title": "Bell",
+			"name": "bell",
+			"path": "./library/bell.svg"
+		},
+		{
+			"title": "Block Default",
+			"name": "block-default",
+			"path": "./library/block-default.svg"
+		},
+		{
+			"title": "Block Meta",
+			"name": "block-meta",
+			"path": "./library/block-meta.svg"
+		},
+		{
+			"title": "Block Table",
+			"name": "block-table",
+			"path": "./library/block-table.svg"
+		},
+		{
+			"title": "Border",
+			"name": "border",
+			"path": "./library/border.svg"
+		},
+		{
+			"title": "Box",
+			"name": "box",
+			"path": "./library/box.svg"
+		},
+		{
+			"title": "Breadcrumbs",
+			"name": "breadcrumbs",
+			"path": "./library/breadcrumbs.svg"
+		},
+		{
+			"title": "Brush",
+			"name": "brush",
+			"path": "./library/brush.svg"
+		},
+		{
+			"title": "Bug",
+			"name": "bug",
+			"path": "./library/bug.svg"
+		},
+		{
+			"title": "Button",
+			"name": "button",
+			"path": "./library/button.svg"
+		},
+		{
+			"title": "Buttons",
+			"name": "buttons",
+			"path": "./library/buttons.svg"
+		},
+		{
+			"title": "Calendar",
+			"name": "calendar",
+			"path": "./library/calendar.svg"
+		},
+		{
+			"title": "Cancel Circle Filled",
+			"name": "cancel-circle-filled",
+			"path": "./library/cancel-circle-filled.svg"
+		},
+		{
+			"title": "Caption",
+			"name": "caption",
+			"path": "./library/caption.svg"
+		},
+		{
+			"title": "Capture Photo",
+			"name": "capture-photo",
+			"path": "./library/capture-photo.svg"
+		},
+		{
+			"title": "Capture Video",
+			"name": "capture-video",
+			"path": "./library/capture-video.svg"
+		},
+		{
+			"title": "Category",
+			"name": "category",
+			"path": "./library/category.svg"
+		},
+		{
+			"title": "Caution Filled",
+			"name": "caution-filled",
+			"path": "./library/caution-filled.svg"
+		},
+		{
+			"title": "Caution",
+			"name": "caution",
+			"path": "./library/caution.svg"
+		},
+		{
+			"title": "Chart Bar",
+			"name": "chart-bar",
+			"path": "./library/chart-bar.svg"
+		},
+		{
+			"title": "Check",
+			"name": "check",
+			"path": "./library/check.svg"
+		},
+		{
+			"title": "Chevron Down Small",
+			"name": "chevron-down-small",
+			"path": "./library/chevron-down-small.svg"
+		},
+		{
+			"title": "Chevron Down",
+			"name": "chevron-down",
+			"path": "./library/chevron-down.svg"
+		},
+		{
+			"title": "Chevron Left Small",
+			"name": "chevron-left-small",
+			"path": "./library/chevron-left-small.svg"
+		},
+		{
+			"title": "Chevron Left",
+			"name": "chevron-left",
+			"path": "./library/chevron-left.svg"
+		},
+		{
+			"title": "Chevron Right Small",
+			"name": "chevron-right-small",
+			"path": "./library/chevron-right-small.svg"
+		},
+		{
+			"title": "Chevron Right",
+			"name": "chevron-right",
+			"path": "./library/chevron-right.svg"
+		},
+		{
+			"title": "Chevron Up Down",
+			"name": "chevron-up-down",
+			"path": "./library/chevron-up-down.svg"
+		},
+		{
+			"title": "Chevron Up",
+			"name": "chevron-up",
+			"path": "./library/chevron-up.svg"
+		},
+		{
+			"title": "Classic",
+			"name": "classic",
+			"path": "./library/classic.svg"
+		},
+		{
+			"title": "Close Small",
+			"name": "close-small",
+			"path": "./library/close-small.svg"
+		},
+		{
+			"title": "Close",
+			"name": "close",
+			"path": "./library/close.svg"
+		},
+		{
+			"title": "Cloud Download",
+			"name": "cloud-download",
+			"path": "./library/cloud-download.svg"
+		},
+		{
+			"title": "Cloud Upload",
+			"name": "cloud-upload",
+			"path": "./library/cloud-upload.svg"
+		},
+		{
+			"title": "Cloud",
+			"name": "cloud",
+			"path": "./library/cloud.svg"
+		},
+		{
+			"title": "Code",
+			"name": "code",
+			"path": "./library/code.svg"
+		},
+		{
+			"title": "Cog",
+			"name": "cog",
+			"path": "./library/cog.svg"
+		},
+		{
+			"title": "Color",
+			"name": "color",
+			"path": "./library/color.svg"
+		},
+		{
+			"title": "Column",
+			"name": "column",
+			"path": "./library/column.svg"
+		},
+		{
+			"title": "Columns",
+			"name": "columns",
+			"path": "./library/columns.svg"
+		},
+		{
+			"title": "Comment Author Avatar",
+			"name": "comment-author-avatar",
+			"path": "./library/comment-author-avatar.svg"
+		},
+		{
+			"title": "Comment Author Name",
+			"name": "comment-author-name",
+			"path": "./library/comment-author-name.svg"
+		},
+		{
+			"title": "Comment Content",
+			"name": "comment-content",
+			"path": "./library/comment-content.svg"
+		},
+		{
+			"title": "Comment Edit Link",
+			"name": "comment-edit-link",
+			"path": "./library/comment-edit-link.svg"
+		},
+		{
+			"title": "Comment Reply Link",
+			"name": "comment-reply-link",
+			"path": "./library/comment-reply-link.svg"
+		},
+		{
+			"title": "Comment",
+			"name": "comment",
+			"path": "./library/comment.svg"
+		},
+		{
+			"title": "Connection",
+			"name": "connection",
+			"path": "./library/connection.svg"
+		},
+		{
+			"title": "Copy Small",
+			"name": "copy-small",
+			"path": "./library/copy-small.svg"
+		},
+		{
+			"title": "Copy",
+			"name": "copy",
+			"path": "./library/copy.svg"
+		},
+		{
+			"title": "Corner All",
+			"name": "corner-all",
+			"path": "./library/corner-all.svg"
+		},
+		{
+			"title": "Corner Bottom Left",
+			"name": "corner-bottom-left",
+			"path": "./library/corner-bottom-left.svg"
+		},
+		{
+			"title": "Corner Bottom Right",
+			"name": "corner-bottom-right",
+			"path": "./library/corner-bottom-right.svg"
+		},
+		{
+			"title": "Corner Top Left",
+			"name": "corner-top-left",
+			"path": "./library/corner-top-left.svg"
+		},
+		{
+			"title": "Corner Top Right",
+			"name": "corner-top-right",
+			"path": "./library/corner-top-right.svg"
+		},
+		{
+			"title": "Cover",
+			"name": "cover",
+			"path": "./library/cover.svg"
+		},
+		{
+			"title": "Create",
+			"name": "create",
+			"path": "./library/create.svg"
+		},
+		{
+			"title": "Crop",
+			"name": "crop",
+			"path": "./library/crop.svg"
+		},
+		{
+			"title": "Currency Dollar",
+			"name": "currency-dollar",
+			"path": "./library/currency-dollar.svg"
+		},
+		{
+			"title": "Currency Euro",
+			"name": "currency-euro",
+			"path": "./library/currency-euro.svg"
+		},
+		{
+			"title": "Currency Pound",
+			"name": "currency-pound",
+			"path": "./library/currency-pound.svg"
+		},
+		{
+			"title": "Custom Link",
+			"name": "custom-link",
+			"path": "./library/custom-link.svg"
+		},
+		{
+			"title": "Custom Post Type",
+			"name": "custom-post-type",
+			"path": "./library/custom-post-type.svg"
+		},
+		{
+			"title": "Dashboard",
+			"name": "dashboard",
+			"path": "./library/dashboard.svg"
+		},
+		{
+			"title": "Desktop",
+			"name": "desktop",
+			"path": "./library/desktop.svg"
+		},
+		{
+			"title": "Details",
+			"name": "details",
+			"path": "./library/details.svg"
+		},
+		{
+			"title": "Download",
+			"name": "download",
+			"path": "./library/download.svg"
+		},
+		{
+			"title": "Drafts",
+			"name": "drafts",
+			"path": "./library/drafts.svg"
+		},
+		{
+			"title": "Drag Handle",
+			"name": "drag-handle",
+			"path": "./library/drag-handle.svg"
+		},
+		{
+			"title": "Drawer Left",
+			"name": "drawer-left",
+			"path": "./library/drawer-left.svg"
+		},
+		{
+			"title": "Drawer Right",
+			"name": "drawer-right",
+			"path": "./library/drawer-right.svg"
+		},
+		{
+			"title": "Envelope",
+			"name": "envelope",
+			"path": "./library/envelope.svg"
+		},
+		{
+			"title": "Error",
+			"name": "error",
+			"path": "./library/error.svg"
+		},
+		{
+			"title": "External",
+			"name": "external",
+			"path": "./library/external.svg"
+		},
+		{
+			"title": "File",
+			"name": "file",
+			"path": "./library/file.svg"
+		},
+		{
+			"title": "Filter",
+			"name": "filter",
+			"path": "./library/filter.svg"
+		},
+		{
+			"title": "Flip Horizontal",
+			"name": "flip-horizontal",
+			"path": "./library/flip-horizontal.svg"
+		},
+		{
+			"title": "Flip Vertical",
+			"name": "flip-vertical",
+			"path": "./library/flip-vertical.svg"
+		},
+		{
+			"title": "Footer",
+			"name": "footer",
+			"path": "./library/footer.svg"
+		},
+		{
+			"title": "Format Bold",
+			"name": "format-bold",
+			"path": "./library/format-bold.svg"
+		},
+		{
+			"title": "Format Capitalize",
+			"name": "format-capitalize",
+			"path": "./library/format-capitalize.svg"
+		},
+		{
+			"title": "Format Indent Rtl",
+			"name": "format-indent-rtl",
+			"path": "./library/format-indent-rtl.svg"
+		},
+		{
+			"title": "Format Indent",
+			"name": "format-indent",
+			"path": "./library/format-indent.svg"
+		},
+		{
+			"title": "Format Italic",
+			"name": "format-italic",
+			"path": "./library/format-italic.svg"
+		},
+		{
+			"title": "Format List Bullets Rtl",
+			"name": "format-list-bullets-rtl",
+			"path": "./library/format-list-bullets-rtl.svg"
+		},
+		{
+			"title": "Format List Bullets",
+			"name": "format-list-bullets",
+			"path": "./library/format-list-bullets.svg"
+		},
+		{
+			"title": "Format List Numbered Rtl",
+			"name": "format-list-numbered-rtl",
+			"path": "./library/format-list-numbered-rtl.svg"
+		},
+		{
+			"title": "Format List Numbered",
+			"name": "format-list-numbered",
+			"path": "./library/format-list-numbered.svg"
+		},
+		{
+			"title": "Format Lowercase",
+			"name": "format-lowercase",
+			"path": "./library/format-lowercase.svg"
+		},
+		{
+			"title": "Format Ltr",
+			"name": "format-ltr",
+			"path": "./library/format-ltr.svg"
+		},
+		{
+			"title": "Format Outdent Rtl",
+			"name": "format-outdent-rtl",
+			"path": "./library/format-outdent-rtl.svg"
+		},
+		{
+			"title": "Format Outdent",
+			"name": "format-outdent",
+			"path": "./library/format-outdent.svg"
+		},
+		{
+			"title": "Format Rtl",
+			"name": "format-rtl",
+			"path": "./library/format-rtl.svg"
+		},
+		{
+			"title": "Format Strikethrough",
+			"name": "format-strikethrough",
+			"path": "./library/format-strikethrough.svg"
+		},
+		{
+			"title": "Format Underline",
+			"name": "format-underline",
+			"path": "./library/format-underline.svg"
+		},
+		{
+			"title": "Format Uppercase",
+			"name": "format-uppercase",
+			"path": "./library/format-uppercase.svg"
+		},
+		{
+			"title": "Fullscreen",
+			"name": "fullscreen",
+			"path": "./library/fullscreen.svg"
+		},
+		{
+			"title": "Funnel",
+			"name": "funnel",
+			"path": "./library/funnel.svg"
+		},
+		{
+			"title": "Gallery",
+			"name": "gallery",
+			"path": "./library/gallery.svg"
+		},
+		{
+			"title": "Gift",
+			"name": "gift",
+			"path": "./library/gift.svg"
+		},
+		{
+			"title": "Globe",
+			"name": "globe",
+			"path": "./library/globe.svg"
+		},
+		{
+			"title": "Grid",
+			"name": "grid",
+			"path": "./library/grid.svg"
+		},
+		{
+			"title": "Group",
+			"name": "group",
+			"path": "./library/group.svg"
+		},
+		{
+			"title": "Handle",
+			"name": "handle",
+			"path": "./library/handle.svg"
+		},
+		{
+			"title": "Header",
+			"name": "header",
+			"path": "./library/header.svg"
+		},
+		{
+			"title": "Heading Level 1",
+			"name": "heading-level-1",
+			"path": "./library/heading-level-1.svg"
+		},
+		{
+			"title": "Heading Level 2",
+			"name": "heading-level-2",
+			"path": "./library/heading-level-2.svg"
+		},
+		{
+			"title": "Heading Level 3",
+			"name": "heading-level-3",
+			"path": "./library/heading-level-3.svg"
+		},
+		{
+			"title": "Heading Level 4",
+			"name": "heading-level-4",
+			"path": "./library/heading-level-4.svg"
+		},
+		{
+			"title": "Heading Level 5",
+			"name": "heading-level-5",
+			"path": "./library/heading-level-5.svg"
+		},
+		{
+			"title": "Heading Level 6",
+			"name": "heading-level-6",
+			"path": "./library/heading-level-6.svg"
+		},
+		{
+			"title": "Heading",
+			"name": "heading",
+			"path": "./library/heading.svg"
+		},
+		{
+			"title": "Help Filled",
+			"name": "help-filled",
+			"path": "./library/help-filled.svg"
+		},
+		{
+			"title": "Help",
+			"name": "help",
+			"path": "./library/help.svg"
+		},
+		{
+			"title": "Home Button",
+			"name": "home-button",
+			"path": "./library/home-button.svg"
+		},
+		{
+			"title": "Home",
+			"name": "home",
+			"path": "./library/home.svg"
+		},
+		{
+			"title": "Html",
+			"name": "html",
+			"path": "./library/html.svg"
+		},
+		{
+			"title": "Image",
+			"name": "image",
+			"path": "./library/image.svg"
+		},
+		{
+			"title": "Inbox",
+			"name": "inbox",
+			"path": "./library/inbox.svg"
+		},
+		{
+			"title": "Info",
+			"name": "info",
+			"path": "./library/info.svg"
+		},
+		{
+			"title": "Insert After",
+			"name": "insert-after",
+			"path": "./library/insert-after.svg"
+		},
+		{
+			"title": "Insert Before",
+			"name": "insert-before",
+			"path": "./library/insert-before.svg"
+		},
+		{
+			"title": "Institution",
+			"name": "institution",
+			"path": "./library/institution.svg"
+		},
+		{
+			"title": "Justify Bottom",
+			"name": "justify-bottom",
+			"path": "./library/justify-bottom.svg"
+		},
+		{
+			"title": "Justify Center Vertical",
+			"name": "justify-center-vertical",
+			"path": "./library/justify-center-vertical.svg"
+		},
+		{
+			"title": "Justify Center",
+			"name": "justify-center",
+			"path": "./library/justify-center.svg"
+		},
+		{
+			"title": "Justify Left",
+			"name": "justify-left",
+			"path": "./library/justify-left.svg"
+		},
+		{
+			"title": "Justify Right",
+			"name": "justify-right",
+			"path": "./library/justify-right.svg"
+		},
+		{
+			"title": "Justify Space Between Vertical",
+			"name": "justify-space-between-vertical",
+			"path": "./library/justify-space-between-vertical.svg"
+		},
+		{
+			"title": "Justify Space Between",
+			"name": "justify-space-between",
+			"path": "./library/justify-space-between.svg"
+		},
+		{
+			"title": "Justify Stretch Vertical",
+			"name": "justify-stretch-vertical",
+			"path": "./library/justify-stretch-vertical.svg"
+		},
+		{
+			"title": "Justify Stretch",
+			"name": "justify-stretch",
+			"path": "./library/justify-stretch.svg"
+		},
+		{
+			"title": "Justify Top",
+			"name": "justify-top",
+			"path": "./library/justify-top.svg"
+		},
+		{
+			"title": "Key",
+			"name": "key",
+			"path": "./library/key.svg"
+		},
+		{
+			"title": "Keyboard Close",
+			"name": "keyboard-close",
+			"path": "./library/keyboard-close.svg"
+		},
+		{
+			"title": "Keyboard Return",
+			"name": "keyboard-return",
+			"path": "./library/keyboard-return.svg"
+		},
+		{
+			"title": "Keyboard",
+			"name": "keyboard",
+			"path": "./library/keyboard.svg"
+		},
+		{
+			"title": "Language",
+			"name": "language",
+			"path": "./library/language.svg"
+		},
+		{
+			"title": "Layout",
+			"name": "layout",
+			"path": "./library/layout.svg"
+		},
+		{
+			"title": "Level Up",
+			"name": "level-up",
+			"path": "./library/level-up.svg"
+		},
+		{
+			"title": "Lifesaver",
+			"name": "lifesaver",
+			"path": "./library/lifesaver.svg"
+		},
+		{
+			"title": "Line Dashed",
+			"name": "line-dashed",
+			"path": "./library/line-dashed.svg"
+		},
+		{
+			"title": "Line Dotted",
+			"name": "line-dotted",
+			"path": "./library/line-dotted.svg"
+		},
+		{
+			"title": "Line Solid",
+			"name": "line-solid",
+			"path": "./library/line-solid.svg"
+		},
+		{
+			"title": "Link Off",
+			"name": "link-off",
+			"path": "./library/link-off.svg"
+		},
+		{
+			"title": "Link",
+			"name": "link",
+			"path": "./library/link.svg"
+		},
+		{
+			"title": "List Item",
+			"name": "list-item",
+			"path": "./library/list-item.svg"
+		},
+		{
+			"title": "List View",
+			"name": "list-view",
+			"path": "./library/list-view.svg"
+		},
+		{
+			"title": "List",
+			"name": "list",
+			"path": "./library/list.svg"
+		},
+		{
+			"title": "Lock Outline",
+			"name": "lock-outline",
+			"path": "./library/lock-outline.svg"
+		},
+		{
+			"title": "Lock Small",
+			"name": "lock-small",
+			"path": "./library/lock-small.svg"
+		},
+		{
+			"title": "Lock",
+			"name": "lock",
+			"path": "./library/lock.svg"
+		},
+		{
+			"title": "Login",
+			"name": "login",
+			"path": "./library/login.svg"
+		},
+		{
+			"title": "Loop",
+			"name": "loop",
+			"path": "./library/loop.svg"
+		},
+		{
+			"title": "Map Marker",
+			"name": "map-marker",
+			"path": "./library/map-marker.svg"
+		},
+		{
+			"title": "Media And Text",
+			"name": "media-and-text",
+			"path": "./library/media-and-text.svg"
+		},
+		{
+			"title": "Media",
+			"name": "media",
+			"path": "./library/media.svg"
+		},
+		{
+			"title": "Megaphone",
+			"name": "megaphone",
+			"path": "./library/megaphone.svg"
+		},
+		{
+			"title": "Menu",
+			"name": "menu",
+			"path": "./library/menu.svg"
+		},
+		{
+			"title": "Mobile",
+			"name": "mobile",
+			"path": "./library/mobile.svg"
+		},
+		{
+			"title": "More Horizontal",
+			"name": "more-horizontal",
+			"path": "./library/more-horizontal.svg"
+		},
+		{
+			"title": "More Vertical",
+			"name": "more-vertical",
+			"path": "./library/more-vertical.svg"
+		},
+		{
+			"title": "More",
+			"name": "more",
+			"path": "./library/more.svg"
+		},
+		{
+			"title": "Move To",
+			"name": "move-to",
+			"path": "./library/move-to.svg"
+		},
+		{
+			"title": "Navigation",
+			"name": "navigation",
+			"path": "./library/navigation.svg"
+		},
+		{
+			"title": "Next",
+			"name": "next",
+			"path": "./library/next.svg"
+		},
+		{
+			"title": "Not Allowed",
+			"name": "not-allowed",
+			"path": "./library/not-allowed.svg"
+		},
+		{
+			"title": "Not Found",
+			"name": "not-found",
+			"path": "./library/not-found.svg"
+		},
+		{
+			"title": "Offline",
+			"name": "offline",
+			"path": "./library/offline.svg"
+		},
+		{
+			"title": "Overlay Text",
+			"name": "overlay-text",
+			"path": "./library/overlay-text.svg"
+		},
+		{
+			"title": "Page Break",
+			"name": "page-break",
+			"path": "./library/page-break.svg"
+		},
+		{
+			"title": "Page",
+			"name": "page",
+			"path": "./library/page.svg"
+		},
+		{
+			"title": "Pages",
+			"name": "pages",
+			"path": "./library/pages.svg"
+		},
+		{
+			"title": "Paragraph",
+			"name": "paragraph",
+			"path": "./library/paragraph.svg"
+		},
+		{
+			"title": "Payment",
+			"name": "payment",
+			"path": "./library/payment.svg"
+		},
+		{
+			"title": "Pencil",
+			"name": "pencil",
+			"path": "./library/pencil.svg"
+		},
+		{
+			"title": "Pending",
+			"name": "pending",
+			"path": "./library/pending.svg"
+		},
+		{
+			"title": "People",
+			"name": "people",
+			"path": "./library/people.svg"
+		},
+		{
+			"title": "Percent",
+			"name": "percent",
+			"path": "./library/percent.svg"
+		},
+		{
+			"title": "Pin Small",
+			"name": "pin-small",
+			"path": "./library/pin-small.svg"
+		},
+		{
+			"title": "Pin",
+			"name": "pin",
+			"path": "./library/pin.svg"
+		},
+		{
+			"title": "Plugins",
+			"name": "plugins",
+			"path": "./library/plugins.svg"
+		},
+		{
+			"title": "Plus Circle Filled",
+			"name": "plus-circle-filled",
+			"path": "./library/plus-circle-filled.svg"
+		},
+		{
+			"title": "Plus Circle",
+			"name": "plus-circle",
+			"path": "./library/plus-circle.svg"
+		},
+		{
+			"title": "Plus",
+			"name": "plus",
+			"path": "./library/plus.svg"
+		},
+		{
+			"title": "Position Center",
+			"name": "position-center",
+			"path": "./library/position-center.svg"
+		},
+		{
+			"title": "Position Left",
+			"name": "position-left",
+			"path": "./library/position-left.svg"
+		},
+		{
+			"title": "Position Right",
+			"name": "position-right",
+			"path": "./library/position-right.svg"
+		},
+		{
+			"title": "Post Author",
+			"name": "post-author",
+			"path": "./library/post-author.svg"
+		},
+		{
+			"title": "Post Categories",
+			"name": "post-categories",
+			"path": "./library/post-categories.svg"
+		},
+		{
+			"title": "Post Comments Count",
+			"name": "post-comments-count",
+			"path": "./library/post-comments-count.svg"
+		},
+		{
+			"title": "Post Comments Form",
+			"name": "post-comments-form",
+			"path": "./library/post-comments-form.svg"
+		},
+		{
+			"title": "Post Comments",
+			"name": "post-comments",
+			"path": "./library/post-comments.svg"
+		},
+		{
+			"title": "Post Content",
+			"name": "post-content",
+			"path": "./library/post-content.svg"
+		},
+		{
+			"title": "Post Date",
+			"name": "post-date",
+			"path": "./library/post-date.svg"
+		},
+		{
+			"title": "Post Excerpt",
+			"name": "post-excerpt",
+			"path": "./library/post-excerpt.svg"
+		},
+		{
+			"title": "Post Featured Image",
+			"name": "post-featured-image",
+			"path": "./library/post-featured-image.svg"
+		},
+		{
+			"title": "Post List",
+			"name": "post-list",
+			"path": "./library/post-list.svg"
+		},
+		{
+			"title": "Post Terms",
+			"name": "post-terms",
+			"path": "./library/post-terms.svg"
+		},
+		{
+			"title": "Post",
+			"name": "post",
+			"path": "./library/post.svg"
+		},
+		{
+			"title": "Preformatted",
+			"name": "preformatted",
+			"path": "./library/preformatted.svg"
+		},
+		{
+			"title": "Previous",
+			"name": "previous",
+			"path": "./library/previous.svg"
+		},
+		{
+			"title": "Published",
+			"name": "published",
+			"path": "./library/published.svg"
+		},
+		{
+			"title": "Pull Left",
+			"name": "pull-left",
+			"path": "./library/pull-left.svg"
+		},
+		{
+			"title": "Pull Right",
+			"name": "pull-right",
+			"path": "./library/pull-right.svg"
+		},
+		{
+			"title": "Pullquote",
+			"name": "pullquote",
+			"path": "./library/pullquote.svg"
+		},
+		{
+			"title": "Query Pagination Next",
+			"name": "query-pagination-next",
+			"path": "./library/query-pagination-next.svg"
+		},
+		{
+			"title": "Query Pagination Numbers",
+			"name": "query-pagination-numbers",
+			"path": "./library/query-pagination-numbers.svg"
+		},
+		{
+			"title": "Query Pagination Previous",
+			"name": "query-pagination-previous",
+			"path": "./library/query-pagination-previous.svg"
+		},
+		{
+			"title": "Query Pagination",
+			"name": "query-pagination",
+			"path": "./library/query-pagination.svg"
+		},
+		{
+			"title": "Quote",
+			"name": "quote",
+			"path": "./library/quote.svg"
+		},
+		{
+			"title": "Receipt",
+			"name": "receipt",
+			"path": "./library/receipt.svg"
+		},
+		{
+			"title": "Redo",
+			"name": "redo",
+			"path": "./library/redo.svg"
+		},
+		{
+			"title": "Remove Bug",
+			"name": "remove-bug",
+			"path": "./library/remove-bug.svg"
+		},
+		{
+			"title": "Remove Submenu",
+			"name": "remove-submenu",
+			"path": "./library/remove-submenu.svg"
+		},
+		{
+			"title": "Replace",
+			"name": "replace",
+			"path": "./library/replace.svg"
+		},
+		{
+			"title": "Reset",
+			"name": "reset",
+			"path": "./library/reset.svg"
+		},
+		{
+			"title": "Resize Corner N E",
+			"name": "resize-corner-n-e",
+			"path": "./library/resize-corner-n-e.svg"
+		},
+		{
+			"title": "Reusable Block",
+			"name": "reusable-block",
+			"path": "./library/reusable-block.svg"
+		},
+		{
+			"title": "Rotate Left",
+			"name": "rotate-left",
+			"path": "./library/rotate-left.svg"
+		},
+		{
+			"title": "Rotate Right",
+			"name": "rotate-right",
+			"path": "./library/rotate-right.svg"
+		},
+		{
+			"title": "Row",
+			"name": "row",
+			"path": "./library/row.svg"
+		},
+		{
+			"title": "Rss",
+			"name": "rss",
+			"path": "./library/rss.svg"
+		},
+		{
+			"title": "Scheduled",
+			"name": "scheduled",
+			"path": "./library/scheduled.svg"
+		},
+		{
+			"title": "Search",
+			"name": "search",
+			"path": "./library/search.svg"
+		},
+		{
+			"title": "Seen",
+			"name": "seen",
+			"path": "./library/seen.svg"
+		},
+		{
+			"title": "Send",
+			"name": "send",
+			"path": "./library/send.svg"
+		},
+		{
+			"title": "Separator",
+			"name": "separator",
+			"path": "./library/separator.svg"
+		},
+		{
+			"title": "Settings",
+			"name": "settings",
+			"path": "./library/settings.svg"
+		},
+		{
+			"title": "Shadow",
+			"name": "shadow",
+			"path": "./library/shadow.svg"
+		},
+		{
+			"title": "Share",
+			"name": "share",
+			"path": "./library/share.svg"
+		},
+		{
+			"title": "Shield",
+			"name": "shield",
+			"path": "./library/shield.svg"
+		},
+		{
+			"title": "Shipping",
+			"name": "shipping",
+			"path": "./library/shipping.svg"
+		},
+		{
+			"title": "Shortcode",
+			"name": "shortcode",
+			"path": "./library/shortcode.svg"
+		},
+		{
+			"title": "Shuffle",
+			"name": "shuffle",
+			"path": "./library/shuffle.svg"
+		},
+		{
+			"title": "Sidebar",
+			"name": "sidebar",
+			"path": "./library/sidebar.svg"
+		},
+		{
+			"title": "Sides All",
+			"name": "sides-all",
+			"path": "./library/sides-all.svg"
+		},
+		{
+			"title": "Sides Axial",
+			"name": "sides-axial",
+			"path": "./library/sides-axial.svg"
+		},
+		{
+			"title": "Sides Bottom",
+			"name": "sides-bottom",
+			"path": "./library/sides-bottom.svg"
+		},
+		{
+			"title": "Sides Horizontal",
+			"name": "sides-horizontal",
+			"path": "./library/sides-horizontal.svg"
+		},
+		{
+			"title": "Sides Left",
+			"name": "sides-left",
+			"path": "./library/sides-left.svg"
+		},
+		{
+			"title": "Sides Right",
+			"name": "sides-right",
+			"path": "./library/sides-right.svg"
+		},
+		{
+			"title": "Sides Top",
+			"name": "sides-top",
+			"path": "./library/sides-top.svg"
+		},
+		{
+			"title": "Sides Vertical",
+			"name": "sides-vertical",
+			"path": "./library/sides-vertical.svg"
+		},
+		{
+			"title": "Site Logo",
+			"name": "site-logo",
+			"path": "./library/site-logo.svg"
+		},
+		{
+			"title": "Square",
+			"name": "square",
+			"path": "./library/square.svg"
+		},
+		{
+			"title": "Stack",
+			"name": "stack",
+			"path": "./library/stack.svg"
+		},
+		{
+			"title": "Star Empty",
+			"name": "star-empty",
+			"path": "./library/star-empty.svg"
+		},
+		{
+			"title": "Star Filled",
+			"name": "star-filled",
+			"path": "./library/star-filled.svg"
+		},
+		{
+			"title": "Star Half",
+			"name": "star-half",
+			"path": "./library/star-half.svg"
+		},
+		{
+			"title": "Store",
+			"name": "store",
+			"path": "./library/store.svg"
+		},
+		{
+			"title": "Stretch Full Width",
+			"name": "stretch-full-width",
+			"path": "./library/stretch-full-width.svg"
+		},
+		{
+			"title": "Stretch Wide",
+			"name": "stretch-wide",
+			"path": "./library/stretch-wide.svg"
+		},
+		{
+			"title": "Styles",
+			"name": "styles",
+			"path": "./library/styles.svg"
+		},
+		{
+			"title": "Subscript",
+			"name": "subscript",
+			"path": "./library/subscript.svg"
+		},
+		{
+			"title": "Superscript",
+			"name": "superscript",
+			"path": "./library/superscript.svg"
+		},
+		{
+			"title": "Swatch",
+			"name": "swatch",
+			"path": "./library/swatch.svg"
+		},
+		{
+			"title": "Symbol Filled",
+			"name": "symbol-filled",
+			"path": "./library/symbol-filled.svg"
+		},
+		{
+			"title": "Symbol",
+			"name": "symbol",
+			"path": "./library/symbol.svg"
+		},
+		{
+			"title": "Table Column After",
+			"name": "table-column-after",
+			"path": "./library/table-column-after.svg"
+		},
+		{
+			"title": "Table Column Before",
+			"name": "table-column-before",
+			"path": "./library/table-column-before.svg"
+		},
+		{
+			"title": "Table Column Delete",
+			"name": "table-column-delete",
+			"path": "./library/table-column-delete.svg"
+		},
+		{
+			"title": "Table Of Contents",
+			"name": "table-of-contents",
+			"path": "./library/table-of-contents.svg"
+		},
+		{
+			"title": "Table Row After",
+			"name": "table-row-after",
+			"path": "./library/table-row-after.svg"
+		},
+		{
+			"title": "Table Row Before",
+			"name": "table-row-before",
+			"path": "./library/table-row-before.svg"
+		},
+		{
+			"title": "Table Row Delete",
+			"name": "table-row-delete",
+			"path": "./library/table-row-delete.svg"
+		},
+		{
+			"title": "Table",
+			"name": "table",
+			"path": "./library/table.svg"
+		},
+		{
+			"title": "Tablet",
+			"name": "tablet",
+			"path": "./library/tablet.svg"
+		},
+		{
+			"title": "Tag",
+			"name": "tag",
+			"path": "./library/tag.svg"
+		},
+		{
+			"title": "Term Description",
+			"name": "term-description",
+			"path": "./library/term-description.svg"
+		},
+		{
+			"title": "Term Name",
+			"name": "term-name",
+			"path": "./library/term-name.svg"
+		},
+		{
+			"title": "Text Color",
+			"name": "text-color",
+			"path": "./library/text-color.svg"
+		},
+		{
+			"title": "Text Horizontal",
+			"name": "text-horizontal",
+			"path": "./library/text-horizontal.svg"
+		},
+		{
+			"title": "Text Vertical",
+			"name": "text-vertical",
+			"path": "./library/text-vertical.svg"
+		},
+		{
+			"title": "Thumbs Down",
+			"name": "thumbs-down",
+			"path": "./library/thumbs-down.svg"
+		},
+		{
+			"title": "Thumbs Up",
+			"name": "thumbs-up",
+			"path": "./library/thumbs-up.svg"
+		},
+		{
+			"title": "Time To Read",
+			"name": "time-to-read",
+			"path": "./library/time-to-read.svg"
+		},
+		{
+			"title": "Tip",
+			"name": "tip",
+			"path": "./library/tip.svg"
+		},
+		{
+			"title": "Title",
+			"name": "title",
+			"path": "./library/title.svg"
+		},
+		{
+			"title": "Tool",
+			"name": "tool",
+			"path": "./library/tool.svg"
+		},
+		{
+			"title": "Trash",
+			"name": "trash",
+			"path": "./library/trash.svg"
+		},
+		{
+			"title": "Trending Down",
+			"name": "trending-down",
+			"path": "./library/trending-down.svg"
+		},
+		{
+			"title": "Trending Up",
+			"name": "trending-up",
+			"path": "./library/trending-up.svg"
+		},
+		{
+			"title": "Typography",
+			"name": "typography",
+			"path": "./library/typography.svg"
+		},
+		{
+			"title": "Undo",
+			"name": "undo",
+			"path": "./library/undo.svg"
+		},
+		{
+			"title": "Ungroup",
+			"name": "ungroup",
+			"path": "./library/ungroup.svg"
+		},
+		{
+			"title": "Unlock",
+			"name": "unlock",
+			"path": "./library/unlock.svg"
+		},
+		{
+			"title": "Unseen",
+			"name": "unseen",
+			"path": "./library/unseen.svg"
+		},
+		{
+			"title": "Update",
+			"name": "update",
+			"path": "./library/update.svg"
+		},
+		{
+			"title": "Upload",
+			"name": "upload",
+			"path": "./library/upload.svg"
+		},
+		{
+			"title": "Verse",
+			"name": "verse",
+			"path": "./library/verse.svg"
+		},
+		{
+			"title": "Video",
+			"name": "video",
+			"path": "./library/video.svg"
+		},
+		{
+			"title": "Widget",
+			"name": "widget",
+			"path": "./library/widget.svg"
+		},
+		{
+			"title": "Word Count",
+			"name": "word-count",
+			"path": "./library/word-count.svg"
+		},
+		{
+			"title": "Wordpress",
+			"name": "wordpress",
+			"path": "./library/wordpress.svg"
+		}
+	]
+}

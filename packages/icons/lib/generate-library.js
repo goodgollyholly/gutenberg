@@ -9,6 +9,7 @@ const { promisify } = require( 'util' );
 const execFileAsync = promisify( execFile );
 
 const ICON_LIBRARY_DIR = path.join( __dirname, '..', 'src', 'library' );
+const METADATA_FILE = path.join( ICON_LIBRARY_DIR, 'metadata.json' );
 
 // - Find *.svg files in ./library
 // - For each, generate a sibling .tsx file
@@ -25,6 +26,7 @@ async function main() {
 	await cleanup();
 	await generateTsxFiles();
 	await generateIndex();
+	await validateStagedSvgFiles();
 }
 
 // Before automatically generating TSX files from SVG ones, ensure that all
@@ -124,6 +126,49 @@ async function generateIndex() {
 	await writeFile( path.join( ICON_LIBRARY_DIR, 'index.ts' ), indexTemplate );
 }
 
+// Validates that newly staged SVG files are properly registered in metadata.json
+async function validateStagedSvgFiles() {
+	const { stdout } = await execFileAsync( 'git', [
+		'diff',
+		'--cached',
+		'--name-only',
+		'--diff-filter=A',
+		ICON_LIBRARY_DIR,
+	] );
+
+	const stagedSvgFiles = stdout
+		.trim()
+		.split( '\n' )
+		.filter( ( file ) => file.endsWith( '.svg' ) && file.length > 0 );
+
+	if ( stagedSvgFiles.length === 0 ) {
+		return;
+	}
+
+	const metadataContent = await readFile( METADATA_FILE, 'utf8' );
+	const metadata = JSON.parse( metadataContent );
+
+	const missingEntries = [];
+
+	// Check for missing entries
+	for ( const svgFile of stagedSvgFiles ) {
+		const iconName = svgFile.replace( /\.svg$/, '' );
+		const entry = metadata.icons.find( ( icon ) => icon.name === iconName );
+
+		if ( ! entry ) {
+			missingEntries.push( iconName );
+		}
+	}
+	if ( missingEntries.length > 0 ) {
+		const errorMessage = `Missing entries in metadata.json:\n${ missingEntries
+			.map( ( name ) => `  - ${ name }` )
+			.join(
+				'\n'
+			) }\n\nPlease manually add the missing entries to metadata.json file.`;
+		throw new Error( errorMessage );
+	}
+}
+
 // "Transform" to TSX by interpolating the SVG source into a simple TS module
 // with a single default export.
 //
@@ -199,4 +244,5 @@ if ( module === require.main ) {
 
 module.exports = {
 	generateTsxFiles,
+	validateStagedSvgFiles,
 };

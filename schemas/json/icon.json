@@ -1,0 +1,36 @@
+{
+	"title": "JSON schema for WordPress icons",
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"type": "object",
+	"properties": {
+		"$schema": {
+			"type": "string"
+		},
+		"icons": {
+			"type": "array",
+			"description": "Array of icon definitions",
+			"items": {
+				"type": "object",
+				"properties": {
+					"title": {
+						"type": "string",
+						"description": "Human-readable title for the icon."
+					},
+					"name": {
+						"type": "string",
+						"description": "Machine-readable name for the icon (kebab-case).",
+						"pattern": "^[a-z0-9-]+$"
+					},
+					"src": {
+						"type": "string",
+						"description": "Path to the icon SVG file."
+					}
+				},
+				"required": [ "title", "name", "src" ],
+				"additionalProperties": false
+			}
+		}
+	},
+	"required": [ "icons" ],
+	"additionalProperties": false
+}
