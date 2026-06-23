@@ -36,7 +36,7 @@
 	"types": "./build-types",
 	"dependencies": {
 		"change-case": "^4.1.2",
-		"form-data": "^4.0.0",
+		"form-data": "4.0.6",
 		"get-port": "^5.1.1",
 		"lighthouse": "^12.2.2",
 		"mime": "^3.0.0",
