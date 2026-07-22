@@ -46,7 +46,7 @@
 		"@wordpress/postcss-plugins-preset": "file:../postcss-plugins-preset",
 		"@wordpress/prettier-config": "file:../prettier-config",
 		"@wordpress/stylelint-config": "file:../stylelint-config",
-		"adm-zip": "^0.5.9",
+		"adm-zip": "^0.6.0",
 		"babel-jest": "29.7.0",
 		"babel-loader": "9.2.1",
 		"browserslist": "^4.21.10",
@@ -91,7 +91,7 @@
 		"webpack": "^5.97.0",
 		"webpack-bundle-analyzer": "^4.9.1",
 		"webpack-cli": "^5.1.4",
-		"webpack-dev-server": "^4.15.1"
+		"webpack-dev-server": "^6.0.0"
 	},
 	"peerDependencies": {
 		"@playwright/test": "^1.55.0",
